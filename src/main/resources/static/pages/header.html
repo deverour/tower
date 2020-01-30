@@ -1,0 +1,87 @@
+<!-- 页面头部 -->
+<header class="main-header">
+
+
+	<!-- Logo -->
+	<a href="home.html" class="logo">
+		<!-- mini logo for sidebar mini 50x50 pixels -->
+		<span class="logo-mini"><b>数据</b></span>
+		<!-- logo for regular state and mobile devices -->
+		<span class="logo-lg"><b>铁塔</b>签认回款管理</span>
+	</a>
+
+
+	<!-- Header Navbar: style can be found in header.less -->
+	<nav class="navbar navbar-static-top">
+		<!-- Sidebar toggle button-->
+		<a href="home.html" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+			<span class="sr-only">Toggle navigation</span>
+		</a>
+
+		<div class="navbar-custom-menu">
+			<ul class="nav navbar-nav">
+
+				<!-- Tasks: style can be found in dropdown.less -->
+				<!--<li class="dropdown tasks-menu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+
+						</a>
+					</li>-->
+				<!-- User Account: style can be found in dropdown.less -->
+				<li class="dropdown user user-menu">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<img src="" class="user-image" alt="User Image" id="userimg">
+						<span class="hidden-xs" id="username"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<!-- User image -->
+						<li class="user-header">
+							<img src="" class="img-circle" alt="User Image" id="userimg2">
+
+							<p id="username2">
+								<b> </b>
+
+								<!--									<small>最后登录 11:20AM</small>-->
+							</p>
+						</li>
+
+						<li class="user-footer">
+							<div class="pull-left">
+								<button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="#changepassword">修改密码</button>
+							</div>
+							<div class="pull-right">
+								<a href="/index.html" class="btn btn-default btn-flat" onclick="logout()">注销</a>
+							</div>
+						</li>
+					</ul>
+				</li>
+
+			</ul>
+		</div>
+	</nav>
+	<!--模态弹窗-->
+
+
+	<script>
+		function logout() {
+			$.ajax({
+				type: "POST", //因为是传输文件，所以必须是post
+				url: '/logout', //对应的后台处理类的地址
+				dataType: "json",
+				data: "test",
+				processData: false,
+				contentType: false,
+				success: function(data) {
+					alert("success");
+
+
+				},
+
+			});
+
+		}
+
+
+	</script>
+</header>

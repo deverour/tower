@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- 页面meta -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+
+
+	<title>重庆铁塔签认回款OA | 导入</title>
+	<meta name="description" content="回款管理-OA系统">
+	<meta name="keywords" content="回款管理-OA系统">
+	<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+	<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../plugins/ionicons/css/ionicons.min.css">
+	<link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
+	<link rel="stylesheet" href="../plugins/morris/morris.css">
+	<link rel="stylesheet" href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+	<link rel="stylesheet" href="../plugins/datepicker/datepicker3.css">
+	<link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+	<link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+	<link rel="stylesheet" href="../plugins/treeTable/jquery.treetable.css">
+	<link rel="stylesheet" href="../plugins/treeTable/jquery.treetable.theme.default.css">
+	<link rel="stylesheet" href="../plugins/select2/select2.css">
+	<link rel="stylesheet" href="../plugins/colorpicker/bootstrap-colorpicker.min.css">
+	<link rel="stylesheet" href="../plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+	<link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+	<link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.css">
+	<link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
+	<link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
+	<link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+	<style>
+		.example-modal .modal {
+			position: relative;
+			top: auto;
+			bottom: auto;
+			right: auto;
+			left: auto;
+			display: block;
+			z-index: 1;
+			height: 280px;
+		}
+		.example-modal .modal {
+			background: transparent !important;
+		}
+	</style>
+</head>
+
+<body class="hold-transition skin-purple sidebar-mini">
+
+<div class="wrapper">
+
+	<!-- 页面头部 -->
+	<div id="header"></div>
+
+	<!-- 页面头部 /-->
+
+	<!-- 导航侧栏 -->
+	<div id="sidebar"></div>
+	<!-- 导航侧栏 /-->
+
+	<!-- 内容区域 -->
+	<!-- @@master = admin-layout.html-->
+	<!-- @@block = content -->
+	<div class="content-wrapper">
+
+		<!-- 内容头部 -->
+
+		<!-- 内容头部 /-->
+
+		<!-- 正文区域 -->
+		<section class="content">
+
+
+			<div class="row">
+				<!-- left column -->
+				<div class="col-md-6">
+					<!-- 上传文件 -->
+					<input type="hidden" name="salt" />
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title"> 电费签认表上传</h3>
+						</div>
+						<!-- /.box-header -->
+						<!-- form start -->
+						<!-- 文件上传 -->
+						<div class="box-body">
+
+							<div class="form-group">
+<!--								<label for="exampleInputFile">File input</label>-->
+								<input id="exampleInputFile" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+								<p class="help-block">
+									<a href="../files/qianren.xlsx" download="签认表导入模板.xlsx">签认表导入模板下载</a>
+								</p>
+							</div>
+
+						</div>
+						<div class="box-footer">
+							<button type="submit"    class="btn btn-primary" value="上传" onclick="submitupdata()" >上传</button>
+						</div>
+
+
+						<!-- 消息区 -->
+						<div class="box box-success" >
+							<br/>
+							<br/>
+							<div class="box-header with-border" style="display:none" id="msg1">
+								<h3 class="box-title" id="errmsg"> </h3>
+							</div>
+							<input type="hidden" id="filepath" value="" />
+
+
+							<div class="box-footer" style="display:none" id="msg2">
+								<button type="submit"  class="btn btn-primary" value="上传" onclick="save()">提交</button>
+							</div>
+						</div>
+
+					</div>
+					<!-- /.box -->
+
+				</div>
+				<!--/.col (left) -->
+				<!-- right column -->
+				<div class="col-md-6" id="rightup">
+
+					<!-- 支付信息上传 -->
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title"> 支付信息上传</h3>
+						</div>
+						<div class="box-body">
+							<div class="form-group">
+								<input id="exampleInputFile1" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+								<p class="help-block">
+									<a href="../files/payment.xlsx" download="支付信息导入模板.xlsx">支付信息导入模板下载</a>
+								</p>
+								<br>
+								<button type="submit"    class="btn btn-primary" value="上传" onclick="savepayment()" >上传</button>
+							</div>
+						</div>
+					</div>
+					<!-- 核销预付上传 -->
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title"> 核销预付单上传</h3>
+						</div>
+						<div class="box-body">
+							<div class="form-group">
+								<input id="exampleInputFile2" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+								<p class="help-block">
+									<a href="../files/hexiaoyufu.xlsx" download="核销预付单导入模板.xlsx">核销预付单导入模板下载</a>
+								</p>
+								<br>
+								<button type="submit"    class="btn btn-primary" value="上传" onclick="savehexiaoyufu()" >上传</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- 结算模式上传 -->
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title"> 结算模式上传</h3>
+						</div>
+						<div class="box-body">
+							<div class="form-group">
+								<input id="exampleInputFile3" type="file"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+								<p class="help-block">
+									<a href="../files/bili.xlsx" download="结算模式导入模板.xlsx">结算模式导入模板下载</a>
+								</p>
+								<br>
+								<button type="submit"    class="btn btn-primary" value="上传" onclick="savebili()" >上传</button>
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+
+			</div>
+			<!-- /.row -->
+
+
+
+		</section>
+		<!-- 正文区域 /-->
+
+	</div>
+	<!-- @@close -->
+	<!-- 内容区域 /-->
+
+
+	<!-- 底部导航 -->
+	<div id="footer"></div>
+	<!-- 底部导航 /-->
+
+</div>
+
+
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../plugins/jQueryUI/jquery-ui.min.js"></script>
+<script>
+	$.widget.bridge('uibutton', $.ui.button);
+</script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../plugins/raphael/raphael-min.js"></script>
+<script src="../plugins/morris/morris.min.js"></script>
+<script src="../plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="../plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="../plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<script src="../plugins/knob/jquery.knob.js"></script>
+<script src="../plugins/daterangepicker/moment.min.js"></script>
+<script src="../plugins/daterangepicker/daterangepicker.js"></script>
+<script src="../plugins/daterangepicker/daterangepicker.zh-CN.js"></script>
+<script src="../plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="../plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../plugins/fastclick/fastclick.js"></script>
+<script src="../plugins/iCheck/icheck.min.js"></script>
+<script src="../plugins/adminLTE/js/app.min.js"></script>
+<script src="../plugins/treeTable/jquery.treetable.js"></script>
+<script src="../plugins/select2/select2.full.min.js"></script>
+<script src="../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<script src="../plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
+<script src="../plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+<script src="../plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
+<script src="../plugins/bootstrap-markdown/js/markdown.js"></script>
+<script src="../plugins/bootstrap-markdown/js/to-markdown.js"></script>
+<script src="../plugins/ckeditor/ckeditor.js"></script>
+<script src="../plugins/input-mask/jquery.inputmask.js"></script>
+<script src="../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="../plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="../plugins/chartjs/Chart.min.js"></script>
+<script src="../plugins/flot/jquery.flot.min.js"></script>
+<script src="../plugins/flot/jquery.flot.resize.min.js"></script>
+<script src="../plugins/flot/jquery.flot.pie.min.js"></script>
+<script src="../plugins/flot/jquery.flot.categories.min.js"></script>
+<script src="../plugins/ionslider/ion.rangeSlider.min.js"></script>
+<script src="../plugins/bootstrap-slider/bootstrap-slider.js"></script>
+<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<script src="../plugins/js/jquery.blockUI.min.js"></script>
+<script src="../plugins/js/myjs.js"></script>
+<script>
+
+
+
+	// 设置激活菜单
+	function setSidebarActive(tagUri) {
+		var liObj = $("#" + tagUri);
+		if (liObj.length > 0) {
+			liObj.parent().parent().addClass("active");
+			liObj.addClass("active");
+		}
+	}
+
+
+	$(document).ready(function() {
+
+		// 激活导航位置
+		setSidebarActive("admin-datalist");
+
+		// 列表按钮
+		$("#dataList td input[type='checkbox']").iCheck({
+			checkboxClass: 'icheckbox_square-blue',
+			increaseArea: '20%'
+		});
+		// 全选操作
+		$("#selall").click(function() {
+			var clicks = $(this).is(':checked');
+			if (!clicks) {
+				$("#dataList td input[type='checkbox']").iCheck("uncheck");
+			} else {
+				$("#dataList td input[type='checkbox']").iCheck("check");
+			}
+			$(this).data("clicks", !clicks);
+		});
+	});
+</script>
+<script>
+	function savepayment() {
+		//console.log("savepayment.run")
+		var type = "file"; //后台接收时需要的参数名称，自定义即可
+		var id = "exampleInputFile1"; //即input的id，用来寻找值
+		var formData = new FormData();
+		formData.append(type, $("#" + id)[0].files[0]); //生成一对表单属性
+		$.ajax({
+			type: "POST", //因为是传输文件，所以必须是post
+			url: '/bills/savepayment', //对应的后台处理类的地址
+			dataType:"json",
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				if(data["isCheck"]=="success"){
+					alert("上传成功: "+data["msg"])
+				}else {
+					alert("上传失败: "+data["msg"])
+				}
+			}
+		});
+	}
+	function savehexiaoyufu() {
+		//console.log("savehexiaoyufu.run")
+		var type = "file"; //后台接收时需要的参数名称，自定义即可
+		var id = "exampleInputFile2"; //即input的id，用来寻找值
+		var formData = new FormData();
+		formData.append(type, $("#" + id)[0].files[0]); //生成一对表单属性
+		$.ajax({
+			type: "POST", //因为是传输文件，所以必须是post
+			url: '/bills/savehexiaoyufu', //对应的后台处理类的地址
+			dataType:"json",
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				if(data["isCheck"]=="success"){
+					alert("上传成功: "+data["msg"])
+				}else {
+					alert("上传失败: "+data["msg"])
+				}
+			}
+		});
+	}
+	function savebili() {
+		//console.log("savebili.run")
+		var type = "file"; //后台接收时需要的参数名称，自定义即可
+		var id = "exampleInputFile3"; //即input的id，用来寻找值
+		var formData = new FormData();
+		formData.append(type, $("#" + id)[0].files[0]); //生成一对表单属性
+		$.ajax({
+			type: "POST", //因为是传输文件，所以必须是post
+			url: '/bills/savebili', //对应的后台处理类的地址
+			dataType:"json",
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				if(data["isCheck"]=="success"){
+					alert("上传成功: "+data["msg"])
+				}else {
+					alert("上传失败: "+data["msg"])
+				}
+			}
+		});
+	}
+
+	//上传
+	function submitupdata() {
+
+		var type = "file"; //后台接收时需要的参数名称，自定义即可
+		var id = "exampleInputFile"; //即input的id，用来寻找值
+		var formData = new FormData();
+		formData.append(type, $("#" + id)[0].files[0]); //生成一对表单属性
+		$.ajax({
+			type: "POST", //因为是传输文件，所以必须是post
+			url: '/bills/check', //对应的后台处理类的地址
+			dataType:"json",
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				if(data["isCheck"]=="success"){
+					alert("数据逻辑校验成功，请核对汇总金额无误后点击“提交”")
+					$("#msg1").attr("style","");
+					$("#msg2").attr("style","");
+					$("#errmsg").text("本次汇总金额为:"+data["total"]);
+					$("#filepath").attr("value",data["filepath"]);
+				}else if(data["isCheck"]=="fail"){
+					alert("数据逻辑校验失败，请根据提示更改导入表后重新上传")
+
+					$("#msg1").attr("style","");
+					var obj = $("#errmsg").text(data["msg"]);
+					obj.html(obj.html().replace(/\n/g,'<br/>'))
+				}
+			}
+		});
+	}
+	function save() {
+		var formData = new FormData();
+		formData.append("filepath", $("#filepath").attr("value")); //生成一对表单属性
+		$.ajax({
+			type: "POST", //因为是传输文件，所以必须是post
+			url: '/bills/save', //对应的后台处理类的地址
+			dataType:"json",
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				alert(data["msg"])
+				$("#filepath").attr("value","");
+				$("#msg1").attr("style","display:none");
+				$("#msg2").attr("style","display:none");
+
+			}
+		});
+
+
+	}
+</script>
+</body>
+
+</html>

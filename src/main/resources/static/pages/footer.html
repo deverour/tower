@@ -1,0 +1,73 @@
+<!-- 底部导航 -->
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+        <b>Version</b> 2.0
+    </div>
+    <strong>Copyright &copy; 2019-2020 <a href="/pages/home.html">重庆铁塔运行维护部物业中心</a>.</strong> All rights reserved.
+</footer>
+<script>
+    $(document).ready(function() {
+        var group;
+        $.ajax({
+            type: "POST", //因为是传输文件，所以必须是post
+            url: '/bills/user', //对应的后台处理类的地址
+            dataType:"json",
+            data: "test",
+            processData: false,
+            contentType: false,
+            success: function(data) {
+                //("test2");
+                //console.log(data);
+                //console.log(data["username"]);
+                var username =data["username"];
+                $("#username").text(data["name"]);
+                $("#username1").text(data["name"]);
+                $("#username2").text(data["name"]);
+                $("#userimg").attr("src","../img/"+username+".jpg");
+                $("#userimg1").attr("src","../img/"+username+".jpg");
+                $("#userimg2").attr("src","../img/"+username+".jpg");
+                group=data["group"];
+                if (group!="重庆"){
+                    $("#rightup").attr("style","display:none");
+                }
+
+
+            }
+        });
+
+        // 选择框
+        $(".select2").select2();
+
+        // WYSIHTML5编辑器
+        $(".textarea").wysihtml5({
+            locale: 'zh-CN'
+        });
+        $('#reservation').daterangepicker({
+            locale: {
+                applyLabel: '确认',
+                cancelLabel: '取消',
+                fromLabel: '起始时间',
+                toLabel: '结束时间',
+                customRangeLabel: '自定义',
+                firstDay: 1
+            },
+            opens: 'right', // 日期选择框的弹出位置
+            separator: ' 至 '
+            //showWeekNumbers : true,     // 是否显示第几周
+        });
+        $('#reservation1').daterangepicker({
+            locale: {
+                applyLabel: '确认',
+                cancelLabel: '取消',
+                fromLabel: '起始时间',
+                toLabel: '结束时间',
+                customRangeLabel: '自定义',
+                firstDay: 1
+            },
+            opens: 'right', // 日期选择框的弹出位置
+            separator: ' 至 '
+            //showWeekNumbers : true,     // 是否显示第几周
+        });
+    });
+
+</script>

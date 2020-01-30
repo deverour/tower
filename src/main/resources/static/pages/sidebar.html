@@ -1,0 +1,217 @@
+<!-- 模态框（Modal） -->
+
+<div id="changepassword" class="modal " role="dialog">
+    <div class="example-modal" style="height: 500px;">
+        <div class="modal" style="height: 500px;">
+            <div class="modal-dialog" style="width: 400px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">修改密码</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group has-feedback">
+                            <input type="text" id="cuser" class="form-control" placeholder="用户名" name="cusername">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="password" id="cpassword1" class="form-control" placeholder="原始密码" name="oldpassword">
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="password" id="cpassword2" class="form-control" placeholder="修改密码" name="newpassword">
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="password" id="cpassword3" class="form-control" placeholder="确认密码" name="confirmpassword">
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" onclick="changepassword()">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function changepassword() {
+        //alert("changepassword");
+        cusername =$('input[name="cusername"]').val();
+        oldpassword =$('input[name="oldpassword"]').val();
+        newpassword =$('input[name="newpassword"]').val();
+        confirmpassword =$('input[name="confirmpassword"]').val();
+
+        if (newpassword!=confirmpassword){
+            alert("新密码与确认密码不一致，请重试");
+            return;
+        }
+
+        $.ajax({
+            type: "POST", //因为是传输文件，所以必须是post
+            url: '/bills/changepassword', //对应的后台处理类的地址
+            dataType:"json",
+            data: {"cusername":cusername,"oldpassword":oldpassword,"newpassword":newpassword,"confirmpassword":confirmpassword},
+            success: function(data) {
+                if(data["isCheck"]=="success"){
+                    alert("密码修改成功，请重新登录");
+                    logout();
+                    $(location).attr('href', '/index.html');
+                }else {
+                    alert("用户名或密码错误，请重试");
+                }
+
+            }
+        });
+
+    }
+</script>
+
+<!--模态弹窗-->
+
+<!-- 导航侧栏 -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image" >
+                <img src="" class="img-circle" alt="User Image" id="userimg1">
+            </div>
+            <div class="pull-left info" >
+                <p ><b id="username1"></b></p>
+
+            </div>
+        </div>
+        <!-- search form -->
+        <!--<form action="#" method="get" class="sidebar-form">
+<div class="input-group">
+    <input type="text" name="q" class="form-control" placeholder="搜索...">
+    <span class="input-group-btn">
+    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+    </button>
+  </span>
+</div>
+</form>-->
+        <!-- /.search form -->
+
+
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="header">菜单</li>
+
+            <li id="admin-index"><a href="home.html"><i class="fa fa-dashboard"></i> <span>首页</span></a></li>
+
+            <!-- 菜单 -->
+
+
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-folder"></i> <span>导入导出</span>
+                    <span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+                </a>
+                <ul class="treeview-menu">
+
+
+
+                    <li id="admin-datalist">
+                        <a href="bills-import.html">
+                            <i class="fa fa-circle-o"></i> 签认导入
+                        </a>
+                    </li>
+
+                    <li id="admin-datalist2">
+                        <a href="bills-export.html">
+                            <i class="fa fa-circle-o"></i> 查询导出
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>
+
+
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-pie-chart"></i> <span>回款统计</span>
+                    <span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+                </a>
+                <ul class="treeview-menu">
+
+                    <li id="charts-chartjs">
+                        <a href="reback-process.html">
+                            <i class=""></i> 回款流程
+                        </a>
+                    </li>
+
+                    <li id="charts-morris">
+                        <a href="">
+                            <i class=""></i> 2
+                        </a>
+                    </li>
+
+                    <li id="charts-flot">
+                        <a href="">
+                            <i class=""></i> 3
+                        </a>
+                    </li>
+
+
+
+                </ul>
+            </li>
+
+
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-laptop"></i> <span>开发中...</span>
+                    <span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+                </a>
+                <ul class="treeview-menu">
+
+                    <li id="elements-general">
+                        <a href="">
+                            <i class="fa fa-circle-o"></i> 1
+                        </a>
+                    </li>
+
+                    <li id="elements-icons">
+                        <a href="">
+                            <i class="fa fa-circle-o"></i> 2
+                        </a>
+                    </li>
+
+
+
+                </ul>
+            </li>
+
+
+
+
+
+
+
+            <!-- 菜单 /-->
+
+            <li id="admin-documentation"><a href="" target="_blank"><i class="fa fa-book"></i> <span>说明文档</span></a></li>
+
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+<!-- 导航侧栏 /-->
