@@ -29,5 +29,8 @@ public interface BillService {
 
     public String getsaomiaoname(String kaipiaobianhao);
 
+    public void deletesaomiaoname(String kaipiaobianhao);
+
+
 
 }

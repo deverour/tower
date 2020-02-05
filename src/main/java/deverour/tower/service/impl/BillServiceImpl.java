@@ -1,5 +1,6 @@
 package deverour.tower.service.impl;
 
+import deverour.tower.controller.BillController;
 import deverour.tower.domain.Bill;
 import deverour.tower.domain.Group;
 import deverour.tower.domain.Reback;
@@ -326,6 +327,7 @@ public class BillServiceImpl implements BillService {
         for (String huikuanbianhao : arrhuikuanbianhao){
             reback.setKaipiaobianhao(huikuanbianhao);
             bill.setKaipiaobianhao(huikuanbianhao);
+
             billMapper.deleteBill(bill);
             counts = counts + billMapper.deleteReback(reback);
         }
@@ -345,6 +347,16 @@ public class BillServiceImpl implements BillService {
         System.out.println("Service.kaipiaobianhao:"+kaipiaobianhao);
         reback.setKaipiaobianhao(kaipiaobianhao);
         return billMapper.getsaomiaoname(reback).get(0);
+    }
+
+    @Override
+    public void deletesaomiaoname(String saomiaoname) {
+        System.out.println("Service.deletesaomiaoname:"+saomiaoname);
+        File filepath = new File(BillController.SCANPATH+"\\"+saomiaoname);
+        String n=BillController.SCANPATH+"\\"+saomiaoname;
+        if (filepath.isFile() && filepath.exists()) {
+            filepath.delete();
+        }
     }
 
 

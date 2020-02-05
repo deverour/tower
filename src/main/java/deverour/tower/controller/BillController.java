@@ -36,7 +36,8 @@ import java.util.*;
 @RequestMapping("/bills")
 public class BillController {
 
-    private static final String SCANPATH = "d:\\ScanFile_Upload";
+    public static final String SCANPATH = "D:\\SystemInfo\\logs\\ScanFile_Upload";
+    public static final String UPLOAD_TEMP="D:\\SystemInfo\\Cache\\TEMP";
 
     @Autowired
     private UserService UserService;
@@ -73,9 +74,10 @@ public class BillController {
         Message message = new Message();
         reback.setKaipiaobianhao(kaipiaobianhao);
         reback.setIssaomiao("否");
+        String saomiaoname = billService.getsaomiaoname(kaipiaobianhao);
         reback.setSaomiaoname("");
         billService.updatesaomiaoname(reback);
-        System.out.println("kaipiaobianhao:"+kaipiaobianhao);
+        billService.deletesaomiaoname(saomiaoname);
         System.out.println("删除扫描件成功");
         message.setMsg("删除扫描件成功");
         return message;
@@ -90,7 +92,7 @@ public class BillController {
 
         String finalFileName = Utils.getFinalFileName(kaipiaobianhao,saomiaoname);
 
-            InputStream is= new FileInputStream(SCANPATH+"\\"+saomiaoname);
+        InputStream is= new FileInputStream(SCANPATH+"\\"+saomiaoname);
 
         byte[] body = null;
         body = new byte[is.available()];
@@ -112,7 +114,8 @@ public class BillController {
         Set<String> paySet =adminService.getPaySet();
         Set<String> kaipiaobianhaoSet =billService.getKaipiaobianhaoSet();
         User user = (User)httpSession.getAttribute("user");
-        String path = request.getSession().getServletContext().getRealPath("/uploads");
+        //String path = request.getSession().getServletContext().getRealPath("/uploads");
+        String path =UPLOAD_TEMP;
         //System.out.println("path:"+path);
         File file = new File(path);
         if(!file.exists()){
@@ -159,7 +162,8 @@ public class BillController {
         System.out.println("------------------------");
         System.out.println("BillController.savepayment.run()");
         Message message = new Message();
-        String path = request.getSession().getServletContext().getRealPath("/uploads");
+        //String path = request.getSession().getServletContext().getRealPath("/uploads");
+        String path =UPLOAD_TEMP;
         //System.out.println("path:"+path);
         File file = new File(path);
         if(!file.exists()){
@@ -187,7 +191,8 @@ public class BillController {
         System.out.println("------------------------");
         System.out.println("BillController.savehexiaoyufu.run()");
         Message message = new Message();
-        String path = request.getSession().getServletContext().getRealPath("/uploads");
+        //String path = request.getSession().getServletContext().getRealPath("/uploads");
+        String path =UPLOAD_TEMP;
         //System.out.println("path:"+path);
         File file = new File(path);
         if(!file.exists()){
@@ -214,7 +219,8 @@ public class BillController {
         System.out.println("------------------------");
         System.out.println("BillController.savebili.run()");
         Message message = new Message();
-        String path = request.getSession().getServletContext().getRealPath("/uploads");
+        //String path = request.getSession().getServletContext().getRealPath("/uploads");
+        String path =UPLOAD_TEMP;
         File file = new File(path);
         if(!file.exists()){
             file.mkdir();
@@ -410,7 +416,7 @@ public class BillController {
         System.out.println("BillController.delete.run()");
         Message message = new Message();
         if( arrhuikuanbianhao==null||arrhuikuanbianhao.length==0){
-            message.setMsg("没有可删除数据");
+            message.setMsg("未勾选需要删除的数据(已回款明细无法删除，请核实后联系市公司撤销打标)");
         }else {
             int msg =billService.delete(arrhuikuanbianhao);
             message.setMsg("删除："+msg+" 笔回款");

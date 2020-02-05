@@ -21,7 +21,7 @@ public interface BillMapper {
     @Insert("insert into bills (quyu,zhifudanhao,zhanzhibianma,dianbiaobianma,dianbiaobeilv,shifouzhigongdian,huhao,shiqi,zhongqi,qidu,zhidu,diansun,dianliang,dianzizonge,gongxiangyunyingshang,fentanbili,jiesuanjine,zhangqi,jiesuanyunyingshang,kaipiaoshijian,kaipiaobianhao,shangchuanriqi) values (#{quyu},#{zhifudanhao},#{zhanzhibianma},#{dianbiaobianma},#{dianbiaobeilv},#{shifouzhigongdian},#{huhao},#{shiqi},#{zhongqi},#{qidu},#{zhidu},#{diansun},#{dianliang},#{dianzizonge},#{gongxiangyunyingshang},#{fentanbili},#{jiesuanjine},#{zhangqi},#{jiesuanyunyingshang},#{kaipiaoshijian},#{kaipiaobianhao},#{shangchuanriqi}) ")
     public int savebill(Bill bill);
 
-    @Insert("insert into rebacks (fengongsi,quyu,zhangqi,yunyingshang,kaipiaobianhao,jiesuanjine,issaomiao,ishuikuan,huikuanriqi) values (#{fengongsi},#{quyu},#{zhangqi},#{yunyingshang},#{kaipiaobianhao},#{jiesuanjine},#{issaomiao},#{ishuikuan},#{huikuanriqi}) ")
+    @Insert("insert into rebacks (fengongsi,quyu,zhangqi,yunyingshang,kaipiaobianhao,jiesuanjine,issaomiao,ishuikuan,huikuanriqi,shangchuanriqi) values (#{fengongsi},#{quyu},#{zhangqi},#{yunyingshang},#{kaipiaobianhao},#{jiesuanjine},#{issaomiao},#{ishuikuan},#{huikuanriqi},#{shangchuanriqi}) ")
     public int saveReback(Reback reback);
 
     @Select("select kaipiaobianhao from bills")

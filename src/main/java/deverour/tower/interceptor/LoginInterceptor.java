@@ -11,6 +11,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         String uri = request.getRequestURI();
         //System.out.println(uri);
         Object user = request.getSession().getAttribute("user");
+
         //System.out.println("getAttribute:"+user);
         if(user != null){
             //登录了。放行
