@@ -240,7 +240,7 @@ public class LogicCheck {
                     }else if(!kaipiaobianhaoStr[1].equals(jiesuanyunyingshang)){
                         message=message+"【开票编号】错误,第二部分应等于结算运营商\n";
                     }else if (!kaipiaobianhaoStr[2].equals(kaipiaoshijian)){
-                        message=message+"【开票编号】错误,第三部分应等于开票时间\n";
+                        message=message+"【开票编号】错误,第三部分应等于制表时间\n";
                     }else if(kaipiaobianhaoStr[3].length()!=3){
                         message=message+"【开票编号】错误,第四部分应为三位数字\n";
                     }
