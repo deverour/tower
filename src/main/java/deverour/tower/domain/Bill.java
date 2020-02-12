@@ -296,7 +296,7 @@ public class Bill {
         namelist.add("结算金额");
         namelist.add("账期");
         namelist.add("结算运营商");
-        namelist.add("开票时间");
+        namelist.add("制表时间");
         namelist.add("开票编号");
         namelist.add("上传日期");
 

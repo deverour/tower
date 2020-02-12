@@ -314,7 +314,7 @@ public class BillController {
         body = new byte[is.available()];
         is.read(body);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attchement;filename=" + URLEncoder.encode("回款明细","UTF-8")+".xlsx");
+        headers.add("Content-Disposition", "attchement;filename=" + URLEncoder.encode("签认明细","UTF-8")+".xlsx");
         HttpStatus statusCode = HttpStatus.OK;
         ResponseEntity<byte[]> entity = new ResponseEntity<>(body, headers, statusCode);
         System.out.println("查询成功,开始下载");
