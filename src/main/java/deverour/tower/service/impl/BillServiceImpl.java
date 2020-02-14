@@ -1,10 +1,7 @@
 package deverour.tower.service.impl;
 
 import deverour.tower.controller.BillController;
-import deverour.tower.domain.Bill;
-import deverour.tower.domain.Group;
-import deverour.tower.domain.Reback;
-import deverour.tower.domain.User;
+import deverour.tower.domain.*;
 import deverour.tower.mapper.BillMapper;
 import deverour.tower.mapper.LoginMapper;
 import deverour.tower.myutils.MathUtil;
@@ -37,10 +34,10 @@ public class BillServiceImpl implements BillService {
     public void saveBills(String filepath) throws Exception {
         System.out.println("BillService.saveBills.run()");
         Date date = new Date();
-        System.out.println("date.getTime()/86400000+22570:"+((date.getTime()/86400000)+25570));
+        //System.out.println("date.getTime()/86400000+22570:"+((date.getTime()/86400000)+25570));
         String shangchuanriqi = String.valueOf(((date.getTime()+28800000)/86400000)+25569);
         File file = new File(filepath);
-        System.out.println(filepath);
+        //System.out.println(filepath);
        // List<User> users= null;
         ExcelRead excelRead = new ExcelRead(file.getPath(),2);
         long t1=System.currentTimeMillis();
@@ -58,6 +55,7 @@ public class BillServiceImpl implements BillService {
         reback.setZhangqi(bill.getZhangqi());
         reback.setYunyingshang(bill.getJiesuanyunyingshang());
         reback.setKaipiaobianhao(bill.getKaipiaobianhao());
+        reback.setIscpy("否");
 
                 
 
@@ -74,9 +72,62 @@ public class BillServiceImpl implements BillService {
         reback.setIssaomiao("否");
         reback.setIshuikuan("否");
         reback.setHuikuanriqi("");
+        reback.setSaomiaoname("");
         reback.setShangchuanriqi(shangchuanriqi);
         billMapper.saveReback(reback);
         System.out.println("新增签认明细："+counts);
+
+
+
+    }
+
+    @Override
+    @Transactional(rollbackFor = {RuntimeException.class, Error.class})//开启事务
+    public void saveCpys(String filepath) throws Exception {
+        System.out.println("BillService.saveCyps.run()");
+        Date date = new Date();
+        //System.out.println("date.getTime()/86400000+22570:"+((date.getTime()/86400000)+25570));
+        String shangchuanriqi = String.valueOf(((date.getTime()+28800000)/86400000)+25569);
+        File file = new File(filepath);
+        //System.out.println(filepath);
+        // List<User> users= null;
+        ExcelRead excelRead = new ExcelRead(file.getPath(),2);
+
+        int index=1;
+
+        Cpy cpy ;
+        Reback reback = new Reback();
+        double total=0.0;
+        int counts=0;
+        List<List<String>> lists=excelRead.getMyDataList();
+        cpy= MathUtil.getCpy(lists.get(0));
+        HashMap<String,String> fengongsimap=Group.fengongsiMap();
+        reback.setFengongsi(fengongsimap.get(cpy.getQuyu()));
+        reback.setQuyu(cpy.getQuyu());
+        reback.setZhangqi(cpy.getZhangqi());
+        reback.setYunyingshang(cpy.getJiesuanyunyingshang());
+        reback.setKaipiaobianhao(cpy.getKaipiaobianhao());
+        reback.setIscpy("是");
+
+
+
+
+        for (List<String> billList:lists){
+            cpy= MathUtil.getCpy(billList);
+            cpy.setShangchuanriqi(shangchuanriqi);
+            total=total+ NumberUtils.toDouble(Utils.to2Round(cpy.getJiesuanjine()));
+            counts =billMapper.savecpy(cpy)+counts;
+            index++;
+        }
+        //System.out.println("index:"+index);
+        reback.setJiesuanjine(Utils.to2Round(String.valueOf(total)));
+        reback.setIssaomiao("否");
+        reback.setIshuikuan("否");
+        reback.setHuikuanriqi("");
+        reback.setSaomiaoname("");
+        reback.setShangchuanriqi(shangchuanriqi);
+        billMapper.saveReback(reback);
+        System.out.println("新增包干签认明细："+counts);
 
 
 
@@ -87,6 +138,14 @@ public class BillServiceImpl implements BillService {
         File file = new File(filepath);
         ExcelRead excelRead = new ExcelRead(file.getPath(),2);
         HashMap<String,String> m= LogicCheck.billCheck(excelRead.getMyDataList(),user,paySet,kaipiaobianhaoSet);
+        return m;
+    }
+
+    @Override
+    public HashMap<String,String> checkCpys(String filepath, User user, Set<String> paySet,Set<String> kaipiaobianhaoSet) throws Exception {
+        File file = new File(filepath);
+        ExcelRead excelRead = new ExcelRead(file.getPath(),2);
+        HashMap<String,String> m= LogicCheck.cpysCheck(excelRead.getMyDataList(),user,kaipiaobianhaoSet);
         return m;
     }
 
@@ -166,6 +225,78 @@ public class BillServiceImpl implements BillService {
 
 
         return billMapper.findbills(bill);
+    }
+
+    @Override
+    public List<Cpy> findcpys(String fengongsilist,String quyulist,String yunyingshanglist,String huikuanbianhao,String zhangqi,User user) throws ParseException {
+        Cpy cpy = new Cpy();
+
+
+
+        String quyus = "";
+
+        if (quyulist.equals("all")){
+            if (fengongsilist.equals("all")){
+                for (String str : Group.getGroupMap().get(user.getGroup())){
+                    quyus=quyus+"|"+str;
+                }
+            }else {
+                String[] strArrfen = fengongsilist.split("-");
+                for (int i = 1; i < strArrfen.length; ++i){
+                    for (String str :Group.getGroupMap().get(strArrfen[i])){
+                        quyus=quyus+"|"+str;
+                    }
+                }
+            }
+        }else {
+            String[] strArr = quyulist.split("-");
+            for (int i = 1; i < strArr.length; ++i){
+                quyus=quyus+"|"+strArr[i];
+            }
+
+        }
+        quyus=quyus.substring(1);
+        //System.out.println("quyus:"+quyus);
+
+        String kehus = "";
+        if (yunyingshanglist.equals("all")){
+            kehus="移动|联通|电信";
+        }else {
+            String[] strArrkehu = yunyingshanglist.split("-");
+            //System.out.println(strArrkehu.length); //这里输出3
+            for (int i = 1; i < strArrkehu.length; ++i) {
+                kehus = kehus + "|" + strArrkehu[i];
+            }
+            kehus = kehus.substring(1);
+
+        }
+        //System.out.println("kehus:"+kehus);
+        String nowTime=zhangqi.substring(0,10);
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        String shangchuanriqi = formatter.format(date);
+        if (!shangchuanriqi.equals(nowTime)){
+            String startTime=zhangqi.substring(6,10)+zhangqi.substring(0,2);
+            String endTime=zhangqi.substring(19,23)+zhangqi.substring(13,15);
+            String timeList = Utils.getTimeList(startTime,endTime);
+            cpy.setTimes(timeList);
+            //System.out.println("有时间");
+            // System.out.println(timeList);
+        }
+
+
+
+
+        cpy.setQuyus(quyus);
+        if (huikuanbianhao.length()>1){
+            cpy.setKaipiaobianhao(huikuanbianhao);
+        }
+
+        cpy.setKehus(kehus);
+
+
+
+        return billMapper.findcpys(cpy);
     }
 
     @Override
@@ -324,11 +455,13 @@ public class BillServiceImpl implements BillService {
         int counts = 0;
         Reback reback = new Reback();
         Bill bill=new Bill();
+        Cpy cpy = new Cpy();
         for (String huikuanbianhao : arrhuikuanbianhao){
             reback.setKaipiaobianhao(huikuanbianhao);
             bill.setKaipiaobianhao(huikuanbianhao);
-
+            cpy.setKaipiaobianhao(huikuanbianhao);
             billMapper.deleteBill(bill);
+            billMapper.deleteCpy(cpy);
             counts = counts + billMapper.deleteReback(reback);
         }
         //System.out.println("counts:"+counts);

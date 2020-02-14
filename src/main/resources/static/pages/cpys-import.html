@@ -86,7 +86,7 @@
 					<input type="hidden" name="salt" />
 					<div class="box box-primary">
 						<div class="box-header with-border">
-							<h3 class="box-title"> 代垫电费签认表上传</h3>
+							<h3 class="box-title"> 包干电费签认表上传</h3>
 						</div>
 						<!-- /.box-header -->
 						<!-- form start -->
@@ -97,7 +97,7 @@
 <!--								<label for="exampleInputFile">File input</label>-->
 								<input id="exampleInputFile" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
 								<p class="help-block">
-									<a href="../files/qianren.xlsx" download="代垫签认表导入模板.xlsx">代垫签认表导入模板下载</a>
+									<a href="../files/cpy.xlsx" download="包干签认表导入模板.xlsx">包干签认表导入模板下载</a>
 								</p>
 							</div>
 
@@ -128,61 +128,7 @@
 				</div>
 				<!--/.col (left) -->
 				<!-- right column -->
-				<div class="col-md-6" id="rightup">
 
-					<!-- 支付信息上传 -->
-					<div class="box box-primary">
-						<div class="box-header with-border">
-							<h3 class="box-title"> 支付信息上传</h3>
-						</div>
-						<div class="box-body">
-							<div class="form-group">
-								<input id="exampleInputFile1" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
-								<p class="help-block">
-									<a href="../files/payment.xlsx" download="支付信息导入模板.xlsx">支付信息导入模板下载</a>
-								</p>
-								<br>
-								<button type="submit"    class="btn btn-primary" value="上传" onclick="savepayment()" >上传</button>
-							</div>
-						</div>
-					</div>
-					<!-- 核销预付上传 -->
-					<div class="box box-primary">
-						<div class="box-header with-border">
-							<h3 class="box-title"> 核销预付单上传</h3>
-						</div>
-						<div class="box-body">
-							<div class="form-group">
-								<input id="exampleInputFile2" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
-								<p class="help-block">
-									<a href="../files/hexiaoyufu.xlsx" download="核销预付单导入模板.xlsx">核销预付单导入模板下载</a>
-								</p>
-								<br>
-								<button type="submit"    class="btn btn-primary" value="上传" onclick="savehexiaoyufu()" >上传</button>
-							</div>
-						</div>
-					</div>
-
-					<!-- 结算模式上传 -->
-					<div class="box box-primary">
-						<div class="box-header with-border">
-							<h3 class="box-title"> 结算模式上传</h3>
-						</div>
-						<div class="box-body">
-							<div class="form-group">
-								<input id="exampleInputFile3" type="file"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
-								<p class="help-block">
-									<a href="../files/bili.xlsx" download="结算模式导入模板.xlsx">结算模式导入模板下载</a>
-								</p>
-								<br>
-								<button type="submit"    class="btn btn-primary" value="上传" onclick="savebili()" >上传</button>
-							</div>
-						</div>
-					</div>
-
-
-
-				</div>
 
 			</div>
 			<!-- /.row -->
@@ -289,72 +235,7 @@
 	});
 </script>
 <script>
-	function savepayment() {
-		//console.log("savepayment.run")
-		var type = "file"; //后台接收时需要的参数名称，自定义即可
-		var id = "exampleInputFile1"; //即input的id，用来寻找值
-		var formData = new FormData();
-		formData.append(type, $("#" + id)[0].files[0]); //生成一对表单属性
-		$.ajax({
-			type: "POST", //因为是传输文件，所以必须是post
-			url: '/bills/savepayment', //对应的后台处理类的地址
-			dataType:"json",
-			data: formData,
-			processData: false,
-			contentType: false,
-			success: function(data) {
-				if(data["isCheck"]=="success"){
-					alert("上传成功: "+data["msg"])
-				}else {
-					alert("上传失败: "+data["msg"])
-				}
-			}
-		});
-	}
-	function savehexiaoyufu() {
-		//console.log("savehexiaoyufu.run")
-		var type = "file"; //后台接收时需要的参数名称，自定义即可
-		var id = "exampleInputFile2"; //即input的id，用来寻找值
-		var formData = new FormData();
-		formData.append(type, $("#" + id)[0].files[0]); //生成一对表单属性
-		$.ajax({
-			type: "POST", //因为是传输文件，所以必须是post
-			url: '/bills/savehexiaoyufu', //对应的后台处理类的地址
-			dataType:"json",
-			data: formData,
-			processData: false,
-			contentType: false,
-			success: function(data) {
-				if(data["isCheck"]=="success"){
-					alert("上传成功: "+data["msg"])
-				}else {
-					alert("上传失败: "+data["msg"])
-				}
-			}
-		});
-	}
-	function savebili() {
-		//console.log("savebili.run")
-		var type = "file"; //后台接收时需要的参数名称，自定义即可
-		var id = "exampleInputFile3"; //即input的id，用来寻找值
-		var formData = new FormData();
-		formData.append(type, $("#" + id)[0].files[0]); //生成一对表单属性
-		$.ajax({
-			type: "POST", //因为是传输文件，所以必须是post
-			url: '/bills/savebili', //对应的后台处理类的地址
-			dataType:"json",
-			data: formData,
-			processData: false,
-			contentType: false,
-			success: function(data) {
-				if(data["isCheck"]=="success"){
-					alert("上传成功: "+data["msg"])
-				}else {
-					alert("上传失败: "+data["msg"])
-				}
-			}
-		});
-	}
+
 
 	//上传
 	function submitupdata() {
@@ -365,7 +246,7 @@
 		formData.append(type, $("#" + id)[0].files[0]); //生成一对表单属性
 		$.ajax({
 			type: "POST", //因为是传输文件，所以必须是post
-			url: '/bills/check', //对应的后台处理类的地址
+			url: '/bills/cpycheck', //对应的后台处理类的地址
 			dataType:"json",
 			data: formData,
 			processData: false,
@@ -392,7 +273,7 @@
 		formData.append("filepath", $("#filepath").attr("value")); //生成一对表单属性
 		$.ajax({
 			type: "POST", //因为是传输文件，所以必须是post
-			url: '/bills/save', //对应的后台处理类的地址
+			url: '/bills/cpysave', //对应的后台处理类的地址
 			dataType:"json",
 			data: formData,
 			processData: false,

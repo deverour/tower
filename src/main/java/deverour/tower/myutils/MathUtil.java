@@ -1,6 +1,7 @@
 package deverour.tower.myutils;
 
 import deverour.tower.domain.Bill;
+import deverour.tower.domain.Cpy;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -90,6 +91,33 @@ public class MathUtil {
         bill.setKaipiaobianhao(list.get(20));
 
         return bill;
+    }
+
+
+    public static Cpy getCpy(List<String> list){
+        Cpy cpy = new Cpy();
+        cpy.setQuyu(list.get(0));
+        cpy.setZhanzhibianma(list.get(1));
+        cpy.setZhanzhimingchen(list.get(2));
+        cpy.setGongxiangfangshi(list.get(3));
+        cpy.setShifouzhigongdian(list.get(4));
+        cpy.setDianjia(list.get(5));
+        cpy.setJizhunnianjia(Utils.to2Round(list.get(6)));
+        cpy.setYearone(Utils.to2Round(list.get(7)));
+        cpy.setYeartwo(Utils.to2Round(list.get(8)));
+        cpy.setYearthree(Utils.to2Round(list.get(9)));
+        cpy.setShiqi(list.get(10));
+        cpy.setZhongqi(list.get(11));
+        cpy.setChuzhangjine(Utils.to2Round(list.get(12)));
+        cpy.setTiaozhangjine(Utils.to2Round(list.get(13)));
+        cpy.setJiesuanjine(Utils.to6Round(list.get(14)));
+        cpy.setZhangqi(list.get(15));
+        cpy.setJiesuanyunyingshang(list.get(16));
+        cpy.setZhibiaoshijian(list.get(17));
+        cpy.setKaipiaobianhao(list.get(18));
+
+
+        return cpy;
     }
     public static ArrayList<String> getTitle(String filepath) throws Exception {
         ArrayList<String> list = new ArrayList<>();

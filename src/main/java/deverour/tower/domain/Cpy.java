@@ -2,35 +2,32 @@ package deverour.tower.domain;
 
 import java.util.ArrayList;
 
-public class Bill {
+public class Cpy {
     private String id;
     private String quyu;
-    private String zhifudanhao;
     private String zhanzhibianma;
-    private String dianbiaobianma;
-    private String dianbiaobeilv;
+    private String zhanzhimingchen;
+    private String gongxiangfangshi;
     private String shifouzhigongdian;
-    private String huhao;
+    private String dianjia;
+    private String jizhunnianjia;
+    private String yearone;
+    private String yeartwo;
+    private String yearthree;
     private String shiqi;
     private String zhongqi;
-    private String qidu;
-    private String zhidu;
-    private String diansun;
-    private String dianliang;
-    private String dianzizonge;
-    private String gongxiangyunyingshang;
-    private String fentanbili;
+    private String chuzhangjine;
+    private String tiaozhangjine;
     private String jiesuanjine;
     private String zhangqi;
     private String jiesuanyunyingshang;
-    private String kaipiaoshijian;
+    private String zhibiaoshijian;
     private String kaipiaobianhao;
     private String shangchuanriqi;
 
     private String quyus;
     private String kehus;
     private  String times;
-
 
     public String getId() {
         return id;
@@ -48,14 +45,6 @@ public class Bill {
         this.quyu = quyu;
     }
 
-    public String getZhifudanhao() {
-        return zhifudanhao;
-    }
-
-    public void setZhifudanhao(String zhifudanhao) {
-        this.zhifudanhao = zhifudanhao;
-    }
-
     public String getZhanzhibianma() {
         return zhanzhibianma;
     }
@@ -64,20 +53,20 @@ public class Bill {
         this.zhanzhibianma = zhanzhibianma;
     }
 
-    public String getDianbiaobianma() {
-        return dianbiaobianma;
+    public String getZhanzhimingchen() {
+        return zhanzhimingchen;
     }
 
-    public void setDianbiaobianma(String dianbiaobianma) {
-        this.dianbiaobianma = dianbiaobianma;
+    public void setZhanzhimingchen(String zhanzhimingchen) {
+        this.zhanzhimingchen = zhanzhimingchen;
     }
 
-    public String getDianbiaobeilv() {
-        return dianbiaobeilv;
+    public String getGongxiangfangshi() {
+        return gongxiangfangshi;
     }
 
-    public void setDianbiaobeilv(String dianbiaobeilv) {
-        this.dianbiaobeilv = dianbiaobeilv;
+    public void setGongxiangfangshi(String gongxiangfangshi) {
+        this.gongxiangfangshi = gongxiangfangshi;
     }
 
     public String getShifouzhigongdian() {
@@ -88,12 +77,44 @@ public class Bill {
         this.shifouzhigongdian = shifouzhigongdian;
     }
 
-    public String getHuhao() {
-        return huhao;
+    public String getDianjia() {
+        return dianjia;
     }
 
-    public void setHuhao(String huhao) {
-        this.huhao = huhao;
+    public void setDianjia(String dianjia) {
+        this.dianjia = dianjia;
+    }
+
+    public String getJizhunnianjia() {
+        return jizhunnianjia;
+    }
+
+    public void setJizhunnianjia(String jizhunnianjia) {
+        this.jizhunnianjia = jizhunnianjia;
+    }
+
+    public String getYearone() {
+        return yearone;
+    }
+
+    public void setYearone(String yearone) {
+        this.yearone = yearone;
+    }
+
+    public String getYeartwo() {
+        return yeartwo;
+    }
+
+    public void setYeartwo(String yeartwo) {
+        this.yeartwo = yeartwo;
+    }
+
+    public String getYearthree() {
+        return yearthree;
+    }
+
+    public void setYearthree(String yearthree) {
+        this.yearthree = yearthree;
     }
 
     public String getShiqi() {
@@ -112,60 +133,20 @@ public class Bill {
         this.zhongqi = zhongqi;
     }
 
-    public String getQidu() {
-        return qidu;
+    public String getChuzhangjine() {
+        return chuzhangjine;
     }
 
-    public void setQidu(String qidu) {
-        this.qidu = qidu;
+    public void setChuzhangjine(String chuzhangjine) {
+        this.chuzhangjine = chuzhangjine;
     }
 
-    public String getZhidu() {
-        return zhidu;
+    public String getTiaozhangjine() {
+        return tiaozhangjine;
     }
 
-    public void setZhidu(String zhidu) {
-        this.zhidu = zhidu;
-    }
-
-    public String getDiansun() {
-        return diansun;
-    }
-
-    public void setDiansun(String diansun) {
-        this.diansun = diansun;
-    }
-
-    public String getDianliang() {
-        return dianliang;
-    }
-
-    public void setDianliang(String dianliang) {
-        this.dianliang = dianliang;
-    }
-
-    public String getDianzizonge() {
-        return dianzizonge;
-    }
-
-    public void setDianzizonge(String dianzizonge) {
-        this.dianzizonge = dianzizonge;
-    }
-
-    public String getGongxiangyunyingshang() {
-        return gongxiangyunyingshang;
-    }
-
-    public void setGongxiangyunyingshang(String gongxiangyunyingshang) {
-        this.gongxiangyunyingshang = gongxiangyunyingshang;
-    }
-
-    public String getFentanbili() {
-        return fentanbili;
-    }
-
-    public void setFentanbili(String fentanbili) {
-        this.fentanbili = fentanbili;
+    public void setTiaozhangjine(String tiaozhangjine) {
+        this.tiaozhangjine = tiaozhangjine;
     }
 
     public String getJiesuanjine() {
@@ -192,12 +173,12 @@ public class Bill {
         this.jiesuanyunyingshang = jiesuanyunyingshang;
     }
 
-    public String getKaipiaoshijian() {
-        return kaipiaoshijian;
+    public String getZhibiaoshijian() {
+        return zhibiaoshijian;
     }
 
-    public void setKaipiaoshijian(String kaipiaoshijian) {
-        this.kaipiaoshijian = kaipiaoshijian;
+    public void setZhibiaoshijian(String zhibiaoshijian) {
+        this.zhibiaoshijian = zhibiaoshijian;
     }
 
     public String getKaipiaobianhao() {
@@ -241,36 +222,33 @@ public class Bill {
     }
 
 
-
     @Override
     public String toString() {
-        return "Bill{" +
-                "id=" + id +
+        return "Cpy{" +
+                "id='" + id + '\'' +
                 ", quyu='" + quyu + '\'' +
-                ", zhifudanhao='" + zhifudanhao + '\'' +
                 ", zhanzhibianma='" + zhanzhibianma + '\'' +
-                ", dianbiaobianma='" + dianbiaobianma + '\'' +
-                ", dianbiaobeilv='" + dianbiaobeilv + '\'' +
+                ", zhanzhimingchen='" + zhanzhimingchen + '\'' +
+                ", gongxiangfangshi='" + gongxiangfangshi + '\'' +
                 ", shifouzhigongdian='" + shifouzhigongdian + '\'' +
-                ", huhao='" + huhao + '\'' +
+                ", dianjia='" + dianjia + '\'' +
+                ", jizhunnianjia='" + jizhunnianjia + '\'' +
+                ", yearone='" + yearone + '\'' +
+                ", yeartwo='" + yeartwo + '\'' +
+                ", yearthree='" + yearthree + '\'' +
                 ", shiqi='" + shiqi + '\'' +
                 ", zhongqi='" + zhongqi + '\'' +
-                ", qidu='" + qidu + '\'' +
-                ", zhidu='" + zhidu + '\'' +
-                ", diansun='" + diansun + '\'' +
-                ", dianliang='" + dianliang + '\'' +
-                ", dianzizonge='" + dianzizonge + '\'' +
-                ", gongxiangyunyingshang='" + gongxiangyunyingshang + '\'' +
-                ", fentanbili='" + fentanbili + '\'' +
+                ", chuzhangjine='" + chuzhangjine + '\'' +
+                ", tiaozhangjine='" + tiaozhangjine + '\'' +
                 ", jiesuanjine='" + jiesuanjine + '\'' +
                 ", zhangqi='" + zhangqi + '\'' +
                 ", jiesuanyunyingshang='" + jiesuanyunyingshang + '\'' +
-                ", kaipiaoshijian='" + kaipiaoshijian + '\'' +
+                ", zhibiaoshijian='" + zhibiaoshijian + '\'' +
                 ", kaipiaobianhao='" + kaipiaobianhao + '\'' +
+                ", shangchuanriqi='" + shangchuanriqi + '\'' +
                 ", quyus='" + quyus + '\'' +
                 ", kehus='" + kehus + '\'' +
                 ", times='" + times + '\'' +
-                ", shangchuanriqi='" + shangchuanriqi + '\'' +
                 '}';
     }
 
@@ -278,22 +256,20 @@ public class Bill {
         ArrayList<String> namelist = new ArrayList<String>() ;
         namelist.add("结算编号(唯一值)");
         namelist.add("区域");
-        namelist.add("支付单号");
         namelist.add("站址编码");
-        namelist.add("电表编码");
-        namelist.add("电表倍率");
+        namelist.add("站址名称");
+        namelist.add("共享方式");
         namelist.add("是否直供电");
-        namelist.add("户号");
-        namelist.add("始期");
-        namelist.add("终期");
-        namelist.add("起度");
-        namelist.add("止度");
-        namelist.add("电损");
-        namelist.add("电量");
-        namelist.add("垫资总额");
-        namelist.add("共享运营商");
-        namelist.add("分摊比例");
-        namelist.add("结算金额");
+        namelist.add("电价");
+        namelist.add("基准包干年价(不含税)");
+        namelist.add("第一年度包干年价(不含税)");
+        namelist.add("第二年度包干年价(不含税)");
+        namelist.add("第三年度包干年价(不含税)");
+        namelist.add("包干起始日期");
+        namelist.add("包干终止日期");
+        namelist.add("当月系统出账金额(不含税)");
+        namelist.add("调账金额(不含税)");
+        namelist.add("实际结算金额(不含税)");
         namelist.add("账期");
         namelist.add("结算运营商");
         namelist.add("制表时间");

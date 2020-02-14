@@ -15,6 +15,7 @@ public class Reback {
     private String huikuanriqi;
     private String shangchuanriqi;
     private String saomiaoname;
+    private String iscpy;
 
     private String quyus;
     private String kehus;
@@ -123,6 +124,14 @@ public class Reback {
         this.saomiaoname = saomiaoname;
     }
 
+    public String getIscpy() {
+        return iscpy;
+    }
+
+    public void setIscpy(String iscpy) {
+        this.iscpy = iscpy;
+    }
+
     public String getQuyus() {
         return quyus;
     }
@@ -218,6 +227,7 @@ public class Reback {
                 ", huikuanriqi='" + huikuanriqi + '\'' +
                 ", shangchuanriqi='" + shangchuanriqi + '\'' +
                 ", saomiaoname='" + saomiaoname + '\'' +
+                ", iscpy='" + iscpy + '\'' +
                 ", quyus='" + quyus + '\'' +
                 ", kehus='" + kehus + '\'' +
                 ", zhangtimes='" + zhangtimes + '\'' +
@@ -243,6 +253,7 @@ public class Reback {
         namelist.add("是否回款");
         namelist.add("回款日期");
         namelist.add("签认日期");
+        namelist.add("是否包干");
 
         return namelist;
     }

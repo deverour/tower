@@ -252,6 +252,7 @@
 									<th class="text-center">区域</th>
 									<th class="text-center">账期</th>
 									<th class="text-center">运营商</th>
+									<th class="text-center">结算模式</th>
 									<th class="text-center">回款编号</th>
 									<th class="text-center">结算金额</th>
 									<th class="text-center">扫描件</th>
@@ -691,11 +692,12 @@
 					tr.append('<td class="text-center">'+arr[1]+'</td>');
 					tr.append('<td class="text-center">'+arr[2]+'</td>');
 					tr.append('<td class="text-center ">'+arr[3]+'</td>');
-					tr.append('<td class="text-center huikuanbianhao" value="'+idindex+'">'+arr[4]+'</td>');
-					tr.append('<td class="text-right">'+arr[5]+'</td>');
-					tr.append('<td class="text-center issaomiao">'+arr[6]+'</td>');
-					tr.append('<td class="text-center ishuikuan">'+arr[7]+'</td>');
-					tr.append('<td class="text-center huikuantime">'+arr[8]+'</td>');
+					tr.append('<td class="text-center ">'+arr[4]+'</td>');
+					tr.append('<td class="text-center huikuanbianhao" value="'+idindex+'">'+arr[5]+'</td>');
+					tr.append('<td class="text-right">'+arr[6]+'</td>');
+					tr.append('<td class="text-center issaomiao">'+arr[7]+'</td>');
+					tr.append('<td class="text-center ishuikuan">'+arr[8]+'</td>');
+					tr.append('<td class="text-center huikuantime">'+arr[9]+'</td>');
 					var td=$('<td class="text-center"><button type="button" class="btn bg-olive btn-xs btn-primary" data-toggle="modal" data-target="#myModal"  onclick="$.session.set(\'upid\','+idindex+')" >上传</button>&nbsp;&nbsp;<button type="button" class="btn bg-olive btn-xs"  onclick="$.session.set(\'downloadid\','+idindex+');downloadsaomiao()">下载</button>&nbsp;&nbsp;<button type="button" class="btn bg-olive btn-xs" onclick="$.session.set(\'deleteid\','+idindex+');deletesaomiao()">删除</button></td>')
 					tr.append(td);
 					tbody.append(tr);
@@ -732,11 +734,12 @@
 			tr.append('<td class="text-center">'+arr[1]+'</td>');
 			tr.append('<td class="text-center">'+arr[2]+'</td>');
 			tr.append('<td class="text-center ">'+arr[3]+'</td>');
-			tr.append('<td class="text-center huikuanbianhao" value="'+idindex+'">'+arr[4]+'</td>');
-			tr.append('<td class="text-right">'+arr[5]+'</td>');
-			tr.append('<td class="text-center issaomiao">'+arr[6]+'</td>');
-			tr.append('<td class="text-center ishuikuan">'+arr[7]+'</td>');
-			tr.append('<td class="text-center huikuantime">'+arr[8]+'</td>');
+			tr.append('<td class="text-center ">'+arr[4]+'</td>');
+			tr.append('<td class="text-center huikuanbianhao" value="'+idindex+'">'+arr[5]+'</td>');
+			tr.append('<td class="text-right">'+arr[6]+'</td>');
+			tr.append('<td class="text-center issaomiao">'+arr[7]+'</td>');
+			tr.append('<td class="text-center ishuikuan">'+arr[8]+'</td>');
+			tr.append('<td class="text-center huikuantime">'+arr[9]+'</td>');
 			var td=$('<td class="text-center"><button type="button" class="btn bg-olive btn-xs btn-primary" data-toggle="modal" data-target="#myModal"  onclick="$.session.set(\'upid\','+idindex+')" >上传</button>&nbsp;&nbsp;<button type="button" class="btn bg-olive btn-xs"  onclick="$.session.set(\'downloadid\','+idindex+');downloadsaomiao()">下载</button>&nbsp;&nbsp;<button type="button" class="btn bg-olive btn-xs" onclick="$.session.set(\'deleteid\','+idindex+');deletesaomiao()">删除</button></td>')
 			tr.append(td);
 			tbody.append(tr);

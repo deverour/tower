@@ -88,7 +88,10 @@ public class BillController {
         System.out.println("------------------------");
         System.out.println("BillController.downloadsaomiao.run()");
         String saomiaoname = billService.getsaomiaoname(kaipiaobianhao);
-
+        //System.out.println("saomiaoname:"+saomiaoname);
+        if (saomiaoname.equals("")){
+            saomiaoname="default_shaomiao.jpg";
+        }
 
         String finalFileName = Utils.getFinalFileName(kaipiaobianhao,saomiaoname);
 
@@ -145,6 +148,44 @@ public class BillController {
         return message;
     }
 
+    @RequestMapping("/cpycheck")
+    public Message cpycheck(HttpServletRequest request, HttpSession httpSession,@RequestParam("file") MultipartFile upload) throws Exception {
+        System.out.println("------------------------");
+        System.out.println("BillController.cpycheck.run()");
+        Set<String> paySet =adminService.getPaySet();
+        Set<String> kaipiaobianhaoSet =billService.getKaipiaobianhaoSet();
+        User user = (User)httpSession.getAttribute("user");
+        //String path = request.getSession().getServletContext().getRealPath("/uploads");
+        String path =UPLOAD_TEMP;
+        //System.out.println("path:"+path);
+        File file = new File(path);
+        if(!file.exists()){
+            file.mkdir();
+        }
+        String filename = Utils.getRealName(upload.getOriginalFilename());
+        System.out.println("filename:"+filename);
+        String uuid = UUID.randomUUID().toString().replace("-","");
+        filename = uuid+"-"+filename;
+        upload.transferTo(new File(path,filename));
+        String filepath = file.getPath()+"\\"+filename;
+        HashMap<String,String> map=billService.checkCpys(filepath,user,paySet,kaipiaobianhaoSet);
+        String msg = map.get("msg");
+        Message message = new Message();
+
+        if(msg.length()>0){
+            message.setIsCheck("fail");
+            message.setMsg(msg);
+        }else{
+            message.setIsCheck("success");
+            message.setTotal(map.get("total"));
+
+        }
+        message.setFilepath(filepath);
+        //System.out.println("msgpath:"+message.getFilepath());
+        //System.out.println();
+        return message;
+    }
+
     @RequestMapping("/save")
     public Message save(HttpServletRequest request) throws Exception {
         System.out.println("------------------------");
@@ -153,6 +194,18 @@ public class BillController {
         String filepath = request.getParameter("filepath");
         System.out.println("filepath:"+filepath);
         billService.saveBills(filepath);
+        message.setMsg("上传成功");
+        return message;
+    }
+
+    @RequestMapping("/cpysave")
+    public Message cypsave(HttpServletRequest request) throws Exception {
+        System.out.println("------------------------");
+        System.out.println("BillController.save.run()");
+        Message message = new Message();
+        String filepath = request.getParameter("filepath");
+        System.out.println("filepath:"+filepath);
+        billService.saveCpys(filepath);
         message.setMsg("上传成功");
         return message;
     }
@@ -293,6 +346,26 @@ public class BillController {
 
     }
 
+    @RequestMapping("/querycpy")
+    public Message querycpy(HttpSession httpSession,@RequestParam(value = "fengongsilist") String fengongsilist,@RequestParam(value = "quyulist") String quyulist,
+                             @RequestParam(value = "yunyingshanglist") String yunyingshanglist,@RequestParam(value = "huikuanbianhao") String huikuanbianhao,@RequestParam(value = "zhangqi") String zhangqi) throws Exception {
+        System.out.println("------------------------");
+        System.out.println("BillController.querycpy.run()");
+        User user = (User)httpSession.getAttribute("user");
+        List<Cpy> Cpys =billService.findcpys(fengongsilist,quyulist,yunyingshanglist,huikuanbianhao,zhangqi,user);
+        double sum=0.0;
+        int count=0;
+        for (Cpy c:Cpys){
+            sum=sum+Double.parseDouble(c.getJiesuanjine());
+            count++;
+        }
+
+        Message message = new Message();
+        message.setMsg(count+"条明细，    合计金额："+Utils.to2Round(String.valueOf(sum)));
+        return message;
+
+    }
+
     @RequestMapping("/exportbill")
     public ResponseEntity<byte[]> exportbill(HttpSession httpSession,HttpServletRequest request) throws Exception {
         System.out.println("------------------------");
@@ -314,13 +387,43 @@ public class BillController {
         body = new byte[is.available()];
         is.read(body);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attchement;filename=" + URLEncoder.encode("签认明细","UTF-8")+".xlsx");
+        headers.add("Content-Disposition", "attchement;filename=" + URLEncoder.encode("代垫签认明细","UTF-8")+".xlsx");
         HttpStatus statusCode = HttpStatus.OK;
         ResponseEntity<byte[]> entity = new ResponseEntity<>(body, headers, statusCode);
         System.out.println("查询成功,开始下载");
         return entity;
 
     }
+
+    @RequestMapping("/exportcpy")
+    public ResponseEntity<byte[]> exportcpy(HttpSession httpSession,HttpServletRequest request) throws Exception {
+        System.out.println("------------------------");
+        System.out.println("BillController.exportCpy.run()");
+        User user = (User)httpSession.getAttribute("user");
+        String fengongsilist = request.getParameter("fengongsilist");
+        String quyulist = request.getParameter("quyulist");
+        String yunyingshanglist = request.getParameter("yunyingshanglist");
+        String huikuanbianhao = request.getParameter("huikuanbianhao");
+        String zhangqi = request.getParameter("zhangqi");
+        /*System.out.println("fengongsilist:"+fengongsilist);
+        System.out.println("quyulist:"+quyulist);
+        System.out.println("yunyingshanglist:"+yunyingshanglist);
+        System.out.println("zhifudanhao:"+zhifudanhao);
+        System.out.println("zhangqi:"+zhangqi);*/
+        List<Cpy> cpys =billService.findcpys(fengongsilist,quyulist,yunyingshanglist,huikuanbianhao,zhangqi,user);
+        InputStream is= ExcelWrite.WriteCpyAll(cpys);
+        byte[] body = null;
+        body = new byte[is.available()];
+        is.read(body);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attchement;filename=" + URLEncoder.encode("包干签认明细","UTF-8")+".xlsx");
+        HttpStatus statusCode = HttpStatus.OK;
+        ResponseEntity<byte[]> entity = new ResponseEntity<>(body, headers, statusCode);
+        System.out.println("查询成功,开始下载");
+        return entity;
+
+    }
+
 
     @RequestMapping("/exportreback")
     public ResponseEntity<byte[]> exportreback(HttpSession httpSession,HttpServletRequest request) throws Exception {
@@ -388,8 +491,15 @@ public class BillController {
                 date.setTime((long)(NumberUtils.toInt(reback.getHuikuanriqi())-25569)*86400000);
                  huikuanDate = simpleDateFormat.format(date);
             }
+            String jiesuanmoshi="";
+            String iscpy =reback.getIscpy();
+            if(iscpy.equals("是")){
+                jiesuanmoshi="包干";
+            }else {
+                jiesuanmoshi="代垫";
+            }
 
-            list.add(reback.getFengongsi()+"*"+reback.getQuyu()+"*"+reback.getZhangqi()+"*"+reback.getYunyingshang()+"*"+reback.getKaipiaobianhao()+"*"+reback.getJiesuanjine()+"*"+reback.getIssaomiao()+"*"+reback.getIshuikuan()+"*"+huikuanDate);
+            list.add(reback.getFengongsi()+"*"+reback.getQuyu()+"*"+reback.getZhangqi()+"*"+reback.getYunyingshang()+"*"+jiesuanmoshi+"*"+reback.getKaipiaobianhao()+"*"+reback.getJiesuanjine()+"*"+reback.getIssaomiao()+"*"+reback.getIshuikuan()+"*"+huikuanDate);
         }
 
         return list;

@@ -5,7 +5,7 @@
 	<!-- 页面meta -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>重庆铁塔签认回款OA | 代垫导出</title>
+	<title>重庆铁塔签认回款OA | 包干导出</title>
 	<meta name="description" content="回款管理-OA系统">
 	<meta name="keywords" content="回款管理-OA系统">
 	<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
@@ -76,13 +76,13 @@
 
 			<div class="box-body">
 
+
 				<!--tab页-->
 				<div class="nav-tabs-custom">
 					<!--tab头/-->
-
-					<div class="box-header with-border">
-						<h3 class="box-title"> <b>代垫</b>电费签认明细查询|下载</h3>
-					</div>
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> <b>包干</b>电费签认明细查询|下载</h3>
+                    </div>
 
 					<!--tab内容-->
 					<div class="tab-content">
@@ -122,9 +122,9 @@
 									</select>
 								</div>
 
-								<div class="col-md-2 title"><b>支付单号</b></div>
+								<div class="col-md-2 title"><b>回款编号</b></div>
 								<div class="col-md-4 data">
-									<input type="text" class="form-control" id="zhifudanhao" name="zhifudanhao" value="">
+									<input type="text" class="form-control" id="huikuanbianhao" name="huikuanbianhao" value="">
 								</div>
 
 								<div class="col-md-2 title"><b>账期</b></div>
@@ -144,8 +144,8 @@
 
 								<div class="col-md-2 title"></div>
 								<div class="col-md-10 data text-center">
-									<button type="submit" class="btn bg-bg-default" onclick="querybill()"><b>查询</b></button>
-									<button type="submit" class="btn bg-default" onclick="exportbill()"><b>导出</b></button>
+									<button type="submit" class="btn bg-bg-default" onclick="querycpy()"><b>查询</b></button>
+									<button type="submit" class="btn bg-default" onclick="exportcpy()"><b>导出</b></button>
 
 								</div>
 
@@ -237,7 +237,7 @@
 <script src="../plugins/js/myjs.js"></script>
 <script src="../plugins/js/jquerysession.js"></script>
 <script>
-	function querybill() {
+	function querycpy() {
 		fengongsi = $("#fengongsi").val();
 		fengongsilist="-";
 		if (fengongsi==null){
@@ -272,7 +272,7 @@
 		}
 
 
-		var zhifudanhao = $("#zhifudanhao").val();
+		var huikuanbianhao = $("#huikuanbianhao").val();
 		var zhangqi = $("#reservation").val();
 
 
@@ -280,15 +280,15 @@
 			//几个参数需要注意一下
 			type: "POST", //方法类型
 			dataType: "json", //预期服务器返回的数据类型
-			url: "/bills/querybill", //url
-		    data:{"fengongsilist":fengongsilist,"quyulist":quyulist,"yunyingshanglist":yunyingshanglist,"zhifudanhao":zhifudanhao,"zhangqi":zhangqi},
+			url: "/bills/querycpy", //url
+		    data:{"fengongsilist":fengongsilist,"quyulist":quyulist,"yunyingshanglist":yunyingshanglist,"huikuanbianhao":huikuanbianhao,"zhangqi":zhangqi},
 			success: function(data) {
 				$("#querymsg").text(data["msg"]);
 			}
 		});
 	}
 
-	function exportbill() {
+	function exportcpy() {
 
 		fengongsi = $("#fengongsi").val();
 		fengongsilist="-";
@@ -324,23 +324,13 @@
 		}
 
 
-		var zhifudanhao = $("#zhifudanhao").val();
+		var huikuanbianhao = $("#huikuanbianhao").val();
 		var zhangqi = $("#reservation").val();
 
 
-	/*	$.ajax({
-			//几个参数需要注意一下
-			type: "POST", //方法类型
-			dataType: "json", //预期服务器返回的数据类型
-			url: "/bills/exportbill", //url
-			data:{"fengongsilist":fengongsilist,"quyulist":quyulist,"yunyingshanglist":yunyingshanglist,"zhifudanhao":zhifudanhao,"zhangqi":zhangqi},
-			success: function(data) {
-				$("#querymsg").text(data["msg"]);
-			}
-		});*/
-		url="/bills/exportbill";
+		url="/bills/exportcpy";
 
-		data={"fengongsilist":fengongsilist,"quyulist":quyulist,"yunyingshanglist":yunyingshanglist,"zhifudanhao":zhifudanhao,"zhangqi":zhangqi};
+		data={"fengongsilist":fengongsilist,"quyulist":quyulist,"yunyingshanglist":yunyingshanglist,"huikuanbianhao":huikuanbianhao,"zhangqi":zhangqi};
 
 		$.download(url,data);
 

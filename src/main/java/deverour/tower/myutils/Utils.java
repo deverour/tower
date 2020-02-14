@@ -1,6 +1,7 @@
 package deverour.tower.myutils;
 
 import deverour.tower.domain.Bill;
+import deverour.tower.domain.Cpy;
 import deverour.tower.domain.Reback;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -101,6 +102,32 @@ public class Utils {
         return list;
     }
 
+    public static ArrayList<String> getCpyList(Cpy cpy){
+        ArrayList<String> list=new ArrayList<String>();
+        list.add(cpy.getId());
+        list.add(cpy.getQuyu());
+        list.add(cpy.getZhanzhibianma());
+        list.add(cpy.getZhanzhimingchen());
+        list.add(cpy.getGongxiangfangshi());
+        list.add(cpy.getShifouzhigongdian());
+        list.add(cpy.getDianjia());
+        list.add(cpy.getJizhunnianjia());
+        list.add(cpy.getYearone());
+        list.add(cpy.getYeartwo());
+        list.add(cpy.getYearthree());
+        list.add(cpy.getShiqi());
+        list.add(cpy.getZhongqi());
+        list.add(cpy.getChuzhangjine());
+        list.add(cpy.getTiaozhangjine());
+        list.add(cpy.getJiesuanjine());
+        list.add(cpy.getZhangqi());
+        list.add(cpy.getJiesuanyunyingshang());
+        list.add(cpy.getZhibiaoshijian());
+        list.add(cpy.getKaipiaobianhao());
+        list.add(cpy.getShangchuanriqi());
+        return list;
+    }
+
     public static ArrayList<String> getRebackList(Reback reback){
         ArrayList<String> list=new ArrayList<String>();
         list.add(reback.getFengongsi());
@@ -113,6 +140,7 @@ public class Utils {
         list.add(reback.getIshuikuan());
         list.add(reback.getHuikuanriqi());
         list.add(reback.getShangchuanriqi());
+        list.add(reback.getIscpy());
         return list;
     }
 

@@ -1,6 +1,7 @@
 package deverour.tower.mapper;
 
 import deverour.tower.domain.Bill;
+import deverour.tower.domain.Cpy;
 import deverour.tower.domain.Reback;
 import deverour.tower.domain.User;
 import org.apache.ibatis.annotations.Delete;
@@ -21,7 +22,10 @@ public interface BillMapper {
     @Insert("insert into bills (quyu,zhifudanhao,zhanzhibianma,dianbiaobianma,dianbiaobeilv,shifouzhigongdian,huhao,shiqi,zhongqi,qidu,zhidu,diansun,dianliang,dianzizonge,gongxiangyunyingshang,fentanbili,jiesuanjine,zhangqi,jiesuanyunyingshang,kaipiaoshijian,kaipiaobianhao,shangchuanriqi) values (#{quyu},#{zhifudanhao},#{zhanzhibianma},#{dianbiaobianma},#{dianbiaobeilv},#{shifouzhigongdian},#{huhao},#{shiqi},#{zhongqi},#{qidu},#{zhidu},#{diansun},#{dianliang},#{dianzizonge},#{gongxiangyunyingshang},#{fentanbili},#{jiesuanjine},#{zhangqi},#{jiesuanyunyingshang},#{kaipiaoshijian},#{kaipiaobianhao},#{shangchuanriqi}) ")
     public int savebill(Bill bill);
 
-    @Insert("insert into rebacks (fengongsi,quyu,zhangqi,yunyingshang,kaipiaobianhao,jiesuanjine,issaomiao,ishuikuan,huikuanriqi,shangchuanriqi) values (#{fengongsi},#{quyu},#{zhangqi},#{yunyingshang},#{kaipiaobianhao},#{jiesuanjine},#{issaomiao},#{ishuikuan},#{huikuanriqi},#{shangchuanriqi}) ")
+    @Insert("insert into cpys (quyu,zhanzhibianma,zhanzhimingchen,gongxiangfangshi,shifouzhigongdian,dianjia,jizhunnianjia,yearone,yeartwo,yearthree,shiqi,zhongqi,chuzhangjine,tiaozhangjine,jiesuanjine,zhangqi,jiesuanyunyingshang,zhibiaoshijian,kaipiaobianhao,shangchuanriqi) values (#{quyu},#{zhanzhibianma},#{zhanzhimingchen},#{gongxiangfangshi},#{shifouzhigongdian},#{dianjia},#{jizhunnianjia},#{yearone},#{yeartwo},#{yearthree},#{shiqi},#{zhongqi},#{chuzhangjine},#{tiaozhangjine},#{jiesuanjine},#{zhangqi},#{jiesuanyunyingshang},#{zhibiaoshijian},#{kaipiaobianhao},#{shangchuanriqi}) ")
+    public int savecpy(Cpy cpy);
+
+    @Insert("insert into rebacks (fengongsi,quyu,zhangqi,yunyingshang,kaipiaobianhao,jiesuanjine,issaomiao,ishuikuan,huikuanriqi,shangchuanriqi,iscpy) values (#{fengongsi},#{quyu},#{zhangqi},#{yunyingshang},#{kaipiaobianhao},#{jiesuanjine},#{issaomiao},#{ishuikuan},#{huikuanriqi},#{shangchuanriqi},#{iscpy}) ")
     public int saveReback(Reback reback);
 
     @Select("select kaipiaobianhao from bills")
@@ -34,6 +38,14 @@ public interface BillMapper {
             "and zhangqi REGEXP #{times} </if> "+
             "</script>")
     public List<Bill> findbills(Bill bill);
+
+    @Select("<script> select * from cpys where 1=1<if test='kaipiaobianhao != null'>" +
+            "and kaipiaobianhao REGEXP #{kaipiaobianhao} </if> "+
+            "and jiesuanyunyingshang REGEXP #{kehus} and quyu REGEXP #{quyus} "+
+            "<if test='times != null'>"+
+            "and zhangqi REGEXP #{times} </if> "+
+            "</script>")
+    public List<Cpy> findcpys(Cpy cpy);
 
     @Select("<script> select * from rebacks where 1=1" +
             "<if test='zhangtimes != null'>"+
@@ -58,6 +70,9 @@ public interface BillMapper {
 
     @Delete("delete from bills where kaipiaobianhao = #{kaipiaobianhao}")
     public int deleteBill(Bill bill);
+
+    @Delete("delete from cpys where kaipiaobianhao = #{kaipiaobianhao}")
+    public int deleteCpy(Cpy cpy);
 
     @Update("update rebacks set saomiaoname =#{saomiaoname},issaomiao=#{issaomiao} where kaipiaobianhao = #{kaipiaobianhao}")
     public int updatesaomiaoname(Reback reback);
