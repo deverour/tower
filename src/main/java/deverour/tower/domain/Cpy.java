@@ -269,7 +269,7 @@ public class Cpy {
         namelist.add("包干终止日期");
         namelist.add("当月系统出账金额(不含税)");
         namelist.add("调账金额(不含税)");
-        namelist.add("实际结算金额(不含税)");
+        namelist.add("实际结算金额");
         namelist.add("账期");
         namelist.add("结算运营商");
         namelist.add("制表时间");
