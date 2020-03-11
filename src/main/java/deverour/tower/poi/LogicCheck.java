@@ -28,6 +28,7 @@ public class LogicCheck {
 
 
         String oldkaipiaobianhao;
+        String oldkey="";
 
         if (bills.get(0).size()<BillTitle.INDEX_KAIPIAOBIANHAO+1){
             message=message+"第【"+(bills.get(0).size()+1)+"】列不能为空\n";
@@ -44,7 +45,13 @@ public class LogicCheck {
                 message=message+"第【"+(bill.size()+1)+"】列不能为空\n";
             }else{
 
-
+                //KEY
+                String newkey=bill.get(BillTitle.INDEX_ZHANZHIBIANMA)+bill.get(BillTitle.INDEX_DIANBIAOBIANMA)+bill.get(BillTitle.INDEX_ZHONGQI);
+                if (newkey.equals(oldkey)){
+                    message=message+"请以电费签认表表二为数据来源制表，以免后期取数导致电量翻倍（电费签认表表一为系统分摊出账，直供电按票据数量会出两条电量一样的明细），目前三家运营商电费签认表均有新模板（类似电信）\n";
+                }else {
+                    oldkey=newkey;
+                }
 
                 //区域
                 String quyu=bill.get(BillTitle.INDEX_QUYU);
