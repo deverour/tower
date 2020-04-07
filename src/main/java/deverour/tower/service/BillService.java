@@ -18,7 +18,7 @@ public interface BillService {
 
     public HashMap<String,String> checkBills(String filepath, User user, Set<String> paySet,Set<String> kaipiaobianhaoSet) throws Exception;
 
-    public HashMap<String,String> checkCpys(String filepath, User user, Set<String> paySet,Set<String> kaipiaobianhaoSet) throws Exception;
+    public HashMap<String,String> checkCpys(String filepath, User user, Set<String> kaipiaobianhaoSet) throws Exception;
 
     public Set<String> getKaipiaobianhaoSet();
 

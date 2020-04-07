@@ -142,7 +142,7 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public HashMap<String,String> checkCpys(String filepath, User user, Set<String> paySet,Set<String> kaipiaobianhaoSet) throws Exception {
+    public HashMap<String,String> checkCpys(String filepath, User user,Set<String> kaipiaobianhaoSet) throws Exception {
         File file = new File(filepath);
         ExcelRead excelRead = new ExcelRead(file.getPath(),2);
         HashMap<String,String> m= LogicCheck.cpysCheck(excelRead.getMyDataList(),user,kaipiaobianhaoSet);

@@ -19,7 +19,9 @@ import java.util.List;
 import java.util.Set;
 
 @Service("PaymentService")
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl implements AdminService  {
+
+    public static Set set;
 
     @Autowired
     AdminMapper adminMapper;
@@ -105,12 +107,20 @@ public class AdminServiceImpl implements AdminService {
             return "导入模板错误";
         }
     }
-
+/*
     @Override
     public Set<String> getPaySet() {
 
         return adminMapper.getPaySet();
+    }*/
+
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("开始加载支付单号");
+        set = adminMapper.getPaySet();
+        System.out.println("支付单号缓存完成");
+
+
     }
-
-
 }

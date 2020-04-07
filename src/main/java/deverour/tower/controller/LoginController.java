@@ -3,6 +3,7 @@ package deverour.tower.controller;
 import deverour.tower.domain.Group;
 import deverour.tower.domain.User;
 import deverour.tower.service.UserService;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +16,10 @@ import java.util.Date;
 import java.util.Set;
 
 @Controller
-public class LoginController {
+public class LoginController  {
     @Autowired
     private UserService UserService;
+
     @RequestMapping("/login")
     public void login(HttpServletRequest request, HttpSession httpSession, HttpServletResponse response) throws Exception {
         System.out.println("controller:login.run()");
@@ -55,7 +57,6 @@ public class LoginController {
         httpSession.setAttribute("user",null);
         System.out.println(httpSession.getAttribute("user"));
     }
-
 
 
 

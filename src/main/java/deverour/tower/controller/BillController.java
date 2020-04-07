@@ -9,6 +9,7 @@ import deverour.tower.poi.ExcelWrite;
 import deverour.tower.service.BillService;
 import deverour.tower.service.AdminService;
 import deverour.tower.service.UserService;
+import deverour.tower.service.impl.AdminServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +115,7 @@ public class BillController {
     public Message check(HttpServletRequest request, HttpSession httpSession,@RequestParam("file") MultipartFile upload) throws Exception {
         System.out.println("------------------------");
         System.out.println("BillController.check.run()");
-        Set<String> paySet =adminService.getPaySet();
+        Set<String> paySet = AdminServiceImpl.set;
         Set<String> kaipiaobianhaoSet =billService.getKaipiaobianhaoSet();
         User user = (User)httpSession.getAttribute("user");
         //String path = request.getSession().getServletContext().getRealPath("/uploads");
@@ -152,7 +153,7 @@ public class BillController {
     public Message cpycheck(HttpServletRequest request, HttpSession httpSession,@RequestParam("file") MultipartFile upload) throws Exception {
         System.out.println("------------------------");
         System.out.println("BillController.cpycheck.run()");
-        Set<String> paySet =adminService.getPaySet();
+
         Set<String> kaipiaobianhaoSet =billService.getKaipiaobianhaoSet();
         User user = (User)httpSession.getAttribute("user");
         //String path = request.getSession().getServletContext().getRealPath("/uploads");
@@ -168,7 +169,7 @@ public class BillController {
         filename = uuid+"-"+filename;
         upload.transferTo(new File(path,filename));
         String filepath = file.getPath()+"\\"+filename;
-        HashMap<String,String> map=billService.checkCpys(filepath,user,paySet,kaipiaobianhaoSet);
+        HashMap<String,String> map=billService.checkCpys(filepath,user,kaipiaobianhaoSet);
         String msg = map.get("msg");
         Message message = new Message();
 
@@ -533,6 +534,8 @@ public class BillController {
         }
         return message;
     }
+
+
 
 
 

@@ -1,8 +1,10 @@
 package deverour.tower.service;
 
+import org.springframework.beans.factory.InitializingBean;
+
 import java.util.Set;
 
-public interface AdminService {
+public interface AdminService extends InitializingBean {
 
     public String savePayment(String filepath) throws Exception;
 
@@ -10,5 +12,5 @@ public interface AdminService {
 
     public String saveBili(String filepath) throws Exception;
 
-    public Set<String> getPaySet();
+    //public Set<String> getPaySet();
 }
