@@ -198,7 +198,7 @@
 							<div class="form-group form-inline">
 								<div class="btn-group">
 <!--									<button type="button" class="btn btn-default" title="新建"><i class="fa fa-file-o"></i> 已回款</button>-->
-									<button type="button" class="btn btn-default" title="开启" onclick="marking('是')"><i class="fa fa-check"></i> 回款打标</button>
+									<button type="button" class="btn btn-default" title="开启" onclick="marking('是')"><i class="fa fa-check"></i> 开票打标</button>
 									<button type="button" class="btn btn-default" title="屏蔽" onclick="marking('否')"><i class="fa fa-remove"></i> 打标撤销</button>
 									<button type="button" class="btn btn-default" title="删除" onclick="deleted()"><i class="fa fa-trash-o"></i> 删除</button>
 
@@ -221,7 +221,7 @@
 											</div>
 
 											<div class="modal-body">
-												<input id="exampleInputFile" type="file" accept="image/png,.jpg,.pdf,.rar,.zip,7z" >
+												<input id="exampleInputFile" type="file" accept="image/png,.jpg,.pdf,.rar,.zip,.7z" >
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
@@ -256,7 +256,7 @@
 									<th class="text-center">回款编号</th>
 									<th class="text-center">结算金额</th>
 									<th class="text-center">扫描件</th>
-									<th class="text-center">是否回款</th>
+									<th class="text-center">是否开票</th>
 									<th class="text-center">回款时间</th>
 									<th class="text-center">扫描件</th>
 								</tr>
@@ -486,10 +486,10 @@
 	function marking(marked) {
 	    group=$.session.get("group");
 		newpage=$.session.get("page");
-		if (group!="重庆"){
+		/*if (group!="重庆"){
 			alert("对不起，您没有该操作的权限，请联系市公司");
 			return;
-		}
+		}*/
 		//alert("当前page:"+newpage);
 		var inputs =$("input[name='ids']");
 		var i=1;
