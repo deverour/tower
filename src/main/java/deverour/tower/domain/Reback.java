@@ -250,8 +250,8 @@ public class Reback {
         namelist.add("回款编号");
         namelist.add("结算金额");
         namelist.add("是否上传扫描件");
-        namelist.add("是否回款");
-        namelist.add("回款日期");
+        namelist.add("是否开票");
+        namelist.add("开票时间");
         namelist.add("签认日期");
         namelist.add("是否包干");
 

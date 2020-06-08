@@ -257,7 +257,7 @@
 									<th class="text-center">结算金额</th>
 									<th class="text-center">扫描件</th>
 									<th class="text-center">是否开票</th>
-									<th class="text-center">回款时间</th>
+									<th class="text-center">开票时间</th>
 									<th class="text-center">扫描件</th>
 								</tr>
 							</thead>
@@ -497,8 +497,8 @@
 		inputs.each(function(){
 			if (marked=="是"){
 				if ($(this).is(":checked")){
-
-					if ($(this).parent().parent().children(".issaomiao").eq(0).text()=="是" && $(this).parent().parent().children(".huikuantime").eq(0).text().length<5) {
+					//if ($(this).parent().parent().children(".issaomiao").eq(0).text()=="是" && $(this).parent().parent().children(".huikuantime").eq(0).text().length<5) {
+					if ( $(this).parent().parent().children(".huikuantime").eq(0).text().length<5) {
 						console.log("内容是："+i+$(this).parent().parent().children(".huikuanbianhao").eq(0).text());
 						//alert("是否扫描："+$(this).parent().parent().children(".issaomiao").eq(0).text());
 						arrhuikuanbianhao.push($(this).parent().parent().children(".huikuanbianhao").eq(0).text());

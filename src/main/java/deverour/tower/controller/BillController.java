@@ -527,7 +527,7 @@ public class BillController {
         System.out.println("BillController.delete.run()");
         Message message = new Message();
         if( arrhuikuanbianhao==null||arrhuikuanbianhao.length==0){
-            message.setMsg("未勾选需要删除的数据(已回款明细无法删除，请核实后联系市公司撤销打标)");
+            message.setMsg("未勾选需要删除的数据(已开票明细无法删除，请取消开票标记后重试)");
         }else {
             int msg =billService.delete(arrhuikuanbianhao);
             message.setMsg("删除："+msg+" 笔回款");
