@@ -38,7 +38,9 @@ public class AdminServiceImpl implements AdminService  {
             int counts=0;
             for (List<String> paymentList:excelRead.getMyDataList()){
                 payment.setShi(paymentList.get(0));
-                payment.setZhifudanhao(paymentList.get(1));
+                String zhifudanhao = paymentList.get(1);
+                set.add(zhifudanhao);
+                payment.setZhifudanhao(zhifudanhao);
                 payment.setGongdianleixing(paymentList.get(2));
                 payment.setZhifujine(paymentList.get(3));
                 payment.setFukuanriqi(paymentList.get(4));
