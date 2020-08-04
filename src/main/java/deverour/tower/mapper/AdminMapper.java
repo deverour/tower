@@ -4,6 +4,7 @@ import deverour.tower.domain.Bili;
 import deverour.tower.domain.HexiaoYufu;
 import deverour.tower.domain.Payment;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -12,8 +13,8 @@ import java.util.Set;
 
 @Repository
 public interface AdminMapper {
-    @Insert("insert into payment (shi,zhifudanhao,gongdianleixing,zhifujine,fukuanriqi) values (#{shi},#{zhifudanhao},#{gongdianleixing},#{zhifujine},#{fukuanriqi}) ")
-    public int savePayment(Payment payment);
+    @Insert("insert into payment (zhifudanhao) values (#{zhifudanhao}) ")
+    public int savePayment( @Param("zhifudanhao") String  zhifudanhao);
 
     @Insert("insert IGNORE into hexiaoyufu (id,hexiaodanhao,hexiaobaozhang,yufudanhao,yufubaozhang) values (#{id},#{hexiaodanhao},#{hexiaobaozhang},#{yufudanhao},#{yufubaozhang})")
     public int saveHexiaoYufu(HexiaoYufu hexiaoYufu);

@@ -21,7 +21,6 @@ import java.util.Set;
 @Service("PaymentService")
 public class AdminServiceImpl implements AdminService  {
 
-    public static Set set;
 
     @Autowired
     AdminMapper adminMapper;
@@ -30,22 +29,21 @@ public class AdminServiceImpl implements AdminService  {
         System.out.println("AdminService.savePayment");
         File file = new File(filepath);
         ArrayList<String> list=MathUtil.getTitle(filepath);
-        if (list.get(1).equals("支付单号") && list.get(4).equals("付款日期")){
+        System.out.println("1>>>>"+list.get(0));
+        if (list.get(0).equals("支付单号") ){
             ExcelRead excelRead = new ExcelRead(file.getPath(),2);
             int index=1;
             System.out.println("index:"+index);
-            Payment payment = new Payment();
             int counts=0;
+            Set set = adminMapper.getPaySet();
             for (List<String> paymentList:excelRead.getMyDataList()){
-                payment.setShi(paymentList.get(0));
-                String zhifudanhao = paymentList.get(1);
-                set.add(zhifudanhao);
-                payment.setZhifudanhao(zhifudanhao);
-                payment.setGongdianleixing(paymentList.get(2));
-                payment.setZhifujine(paymentList.get(3));
-                payment.setFukuanriqi(paymentList.get(4));
-                counts = adminMapper.savePayment(payment)+counts;
-                index++;
+                String zhifudanhao = paymentList.get(0);
+                if (!set.contains(zhifudanhao)){
+                    counts = adminMapper.savePayment(zhifudanhao)+counts;
+                    set.add(zhifudanhao);
+                    index++;
+                }
+
             }
 
             return "新增支付数据："+counts;
@@ -65,6 +63,7 @@ public class AdminServiceImpl implements AdminService  {
             System.out.println("index:" + index);
             HexiaoYufu hexiaoYufu = new HexiaoYufu();
             int counts = 0;
+
             for (List<String> List : excelRead.getMyDataList()) {
                 hexiaoYufu.setId(List.get(0) + "-" + List.get(2));
                 hexiaoYufu.setHexiaodanhao(List.get(0));
@@ -109,20 +108,13 @@ public class AdminServiceImpl implements AdminService  {
             return "导入模板错误";
         }
     }
-/*
+
     @Override
     public Set<String> getPaySet() {
 
         return adminMapper.getPaySet();
-    }*/
-
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println("开始加载支付单号");
-        set = adminMapper.getPaySet();
-        System.out.println("支付单号缓存完成");
-
-
     }
+
+
+
 }

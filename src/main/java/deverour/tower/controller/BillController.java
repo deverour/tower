@@ -115,7 +115,7 @@ public class BillController {
     public Message check(HttpServletRequest request, HttpSession httpSession,@RequestParam("file") MultipartFile upload) throws Exception {
         System.out.println("------------------------");
         System.out.println("BillController.check.run()");
-        Set<String> paySet = AdminServiceImpl.set;
+        Set<String> paySet = adminService.getPaySet();
         Set<String> kaipiaobianhaoSet =billService.getKaipiaobianhaoSet();
         User user = (User)httpSession.getAttribute("user");
         //String path = request.getSession().getServletContext().getRealPath("/uploads");
