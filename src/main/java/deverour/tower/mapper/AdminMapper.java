@@ -1,11 +1,13 @@
 package deverour.tower.mapper;
 
+import deverour.tower.domain.Administrator;
 import deverour.tower.domain.Bili;
 import deverour.tower.domain.HexiaoYufu;
 import deverour.tower.domain.Payment;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,6 +26,13 @@ public interface AdminMapper {
 
     @Select("select zhifudanhao from payment")
     public Set<String> getPaySet();
+
+    @Select("select * from administrator")
+    public List<Administrator> findAdminAll();
+
+    @Update("UPDATE administrator SET VALUE = #{value} WHERE FIELDS = 'switch'")
+    public void updateAdmin(@Param("value") String value);
+
 }
 
 

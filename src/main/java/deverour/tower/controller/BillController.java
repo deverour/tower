@@ -10,6 +10,7 @@ import deverour.tower.service.BillService;
 import deverour.tower.service.AdminService;
 import deverour.tower.service.UserService;
 import deverour.tower.service.impl.AdminServiceImpl;
+import deverour.tower.service.impl.AdministratorService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ import java.util.*;
 @RequestMapping("/bills")
 public class BillController {
 
-    public static final String SCANPATH = "D:\\SystemInfo\\logs\\ScanFile_Upload";
-    public static final String UPLOAD_TEMP="D:\\SystemInfo\\Cache\\TEMP";
+    public static final String SCANPATH = "D:\\tower\\ScanFile_Upload";
+    public static final String UPLOAD_TEMP="D:\\tower\\TEMP";
 
     @Autowired
     private UserService UserService;
@@ -51,6 +52,9 @@ public class BillController {
 
     @RequestMapping("/updatesaomiao")
     public Message updatesaomiaoname(HttpServletRequest request,@RequestParam("file") MultipartFile upload,String kaipiaobianhao) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.updatesaomiaoname.run()");
         Reback reback=new Reback();
@@ -69,6 +73,9 @@ public class BillController {
 
     @RequestMapping("/deletesaomiao")
     public Message deletesaomiao(String kaipiaobianhao) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.deletesaomiao.run()");
         Reback reback=new Reback();
@@ -86,6 +93,9 @@ public class BillController {
 
     @RequestMapping("/downloadsaomiao")
     public ResponseEntity<byte[]> downloadsaomiao(String kaipiaobianhao) throws IOException {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.downloadsaomiao.run()");
         String saomiaoname = billService.getsaomiaoname(kaipiaobianhao);
@@ -113,6 +123,9 @@ public class BillController {
 
     @RequestMapping("/check")
     public Message check(HttpServletRequest request, HttpSession httpSession,@RequestParam("file") MultipartFile upload) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.check.run()");
         Set<String> paySet = adminService.getPaySet();
@@ -151,6 +164,9 @@ public class BillController {
 
     @RequestMapping("/cpycheck")
     public Message cpycheck(HttpServletRequest request, HttpSession httpSession,@RequestParam("file") MultipartFile upload) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.cpycheck.run()");
 
@@ -189,6 +205,9 @@ public class BillController {
 
     @RequestMapping("/save")
     public Message save(HttpServletRequest request) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.save.run()");
         Message message = new Message();
@@ -201,6 +220,9 @@ public class BillController {
 
     @RequestMapping("/cpysave")
     public Message cypsave(HttpServletRequest request) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.save.run()");
         Message message = new Message();
@@ -213,6 +235,9 @@ public class BillController {
 
     @RequestMapping("/savepayment")
     public Message savepayment(HttpServletRequest request,@RequestParam("file") MultipartFile upload) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.savepayment.run()");
         Message message = new Message();
@@ -242,6 +267,9 @@ public class BillController {
 
     @RequestMapping("/savehexiaoyufu")
     public Message savehexiaoyufu(HttpServletRequest request,@RequestParam("file") MultipartFile upload) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.savehexiaoyufu.run()");
         Message message = new Message();
@@ -270,6 +298,9 @@ public class BillController {
 
     @RequestMapping("/savebili")
     public Message savebili(HttpServletRequest request,@RequestParam("file") MultipartFile upload) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.savebili.run()");
         Message message = new Message();
@@ -298,6 +329,9 @@ public class BillController {
 
     @RequestMapping("/user")
     public Object getUser(HttpServletRequest request, HttpSession httpSession, HttpServletResponse response) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         //System.out.println("getUser.run()");
         Object user = httpSession.getAttribute("user");
         //System.out.println("user:"+user);
@@ -306,6 +340,9 @@ public class BillController {
 
     @RequestMapping("/changepassword")
     public Message changepassword(HttpSession httpSession,HttpServletRequest request) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.changepassword.run()");
         Message message=new Message();
@@ -330,6 +367,9 @@ public class BillController {
     @RequestMapping("/querybill")
     public Message querybill(HttpSession httpSession,@RequestParam(value = "fengongsilist") String fengongsilist,@RequestParam(value = "quyulist") String quyulist,
                      @RequestParam(value = "yunyingshanglist") String yunyingshanglist,@RequestParam(value = "zhifudanhao") String zhifudanhao,@RequestParam(value = "zhangqi") String zhangqi) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.querybill.run()");
         User user = (User)httpSession.getAttribute("user");
@@ -350,6 +390,9 @@ public class BillController {
     @RequestMapping("/querycpy")
     public Message querycpy(HttpSession httpSession,@RequestParam(value = "fengongsilist") String fengongsilist,@RequestParam(value = "quyulist") String quyulist,
                              @RequestParam(value = "yunyingshanglist") String yunyingshanglist,@RequestParam(value = "huikuanbianhao") String huikuanbianhao,@RequestParam(value = "zhangqi") String zhangqi) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.querycpy.run()");
         User user = (User)httpSession.getAttribute("user");
@@ -369,6 +412,9 @@ public class BillController {
 
     @RequestMapping("/exportbill")
     public ResponseEntity<byte[]> exportbill(HttpSession httpSession,HttpServletRequest request) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.exportbill.run()");
         User user = (User)httpSession.getAttribute("user");
@@ -398,6 +444,9 @@ public class BillController {
 
     @RequestMapping("/exportcpy")
     public ResponseEntity<byte[]> exportcpy(HttpSession httpSession,HttpServletRequest request) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.exportCpy.run()");
         User user = (User)httpSession.getAttribute("user");
@@ -428,6 +477,9 @@ public class BillController {
 
     @RequestMapping("/exportreback")
     public ResponseEntity<byte[]> exportreback(HttpSession httpSession,HttpServletRequest request) throws Exception {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.getreback.run()");
         User user = (User)httpSession.getAttribute("user");
@@ -458,6 +510,9 @@ public class BillController {
 
     @RequestMapping("/queryreback")
     public List<String> queryreback(HttpSession httpSession,HttpServletRequest request) throws ParseException {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.getreback.run()");
         User user = (User)httpSession.getAttribute("user");
@@ -509,6 +564,9 @@ public class BillController {
 
     @RequestMapping("/marked")
     public Message marked(String[] arrhuikuanbianhao,String marked) throws ParseException {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.marked.run()");
         Message message = new Message();
@@ -523,6 +581,9 @@ public class BillController {
 
     @RequestMapping("/delete")
     public Message delete(String[] arrhuikuanbianhao) {
+        if (!AdministratorService.switchs){
+            return null;
+        }
         System.out.println("------------------------");
         System.out.println("BillController.delete.run()");
         Message message = new Message();
